@@ -189,8 +189,16 @@ def visualizar_solucao(L_cont, C_cont, solution):
 # --- Bloco Principal de Execução ---
 if __name__ == "__main__":
     
+    inicio = time.perf_counter
+
+    prob.solve(pulp.PULP_CBC_CMD(msg=True))
+
+    fim = time.perf_counter()
+
+    tempo_total = fim - inicio
+
     # 1. Carrega os dados do arquivo
-    nome_do_arquivo = 'apt3.txt' 
+    nome_do_arquivo = 'apt18.txt' 
     dados_da_instancia = carregar_instancia(nome_do_arquivo)
     
     if dados_da_instancia:
@@ -204,3 +212,7 @@ if __name__ == "__main__":
         
         # 4. Visualiza a solução se encontrada
         visualizar_solucao(L_bin, C_bin, solucao_final)
+
+
+        print(f"Status da Solução: {pulp.LpStatus[prob.status]}")
+        print(f"Tempo de Execução: {tempo_total:.4f} segundos")

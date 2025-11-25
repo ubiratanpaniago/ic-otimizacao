@@ -1,0 +1,21 @@
+Funções e Parametrizações para Teste no Recozimento Simulado
+
+Funções 
+
+-   f(x) = x**2
+-   f(x) = abs(x) + 3
+-   f(x) = x**4 - 3*x**3 + 2
+-   f(x) = (x-3)**2 + 10
+-   f(x) = math.sin(x) + x**2
+-   f(x) = math.cos(3*x) + x/2
+-   f(x) = x**2 + 10*math.sin(x)
+-   f(x) = x**2 - 4*x + 4 # quadrática deslocada
+-   f(x) = (x**2)/40 - math.cos(x)
+
+Parametrizações 
+
+-   T0 = 1000, Tf = 1e-3, alpha = 0.99, n_iter = 100
+-   T0 = 500, Tf = 0.01, alpha = 0.97, n_iter = 150
+-   T0 = 2000, Tf = 1e-4, alpha = 0.995, n_iter = 50
+-   T0 = 800, Tf = 1e-2, alpha = 0.98, n_iter = 200
+-   T0 = 1200, Tf = 1e-5, alpha = 0.999, n_iter = 30
