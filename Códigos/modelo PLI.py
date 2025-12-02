@@ -73,8 +73,7 @@ def solve_2opp(L, C, items_list):
 
     :param L: Comprimento (eixo X) do contêiner
     :param C: Largura (eixo Y) do contêiner
-    :param items_list: Lista de tuplas, onde cada tupla é (l_i, c_i)
-                       representando o comprimento e largura do item i.
+    :param items_list: Lista de tuplas, onde cada tupla é (l_i, c_i) representando o comprimento e largura do item i.
     """
 
     m = len(items_list)

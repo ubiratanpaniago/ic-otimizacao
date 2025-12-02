@@ -188,16 +188,9 @@ def visualizar_solucao(L_cont, C_cont, solution):
 
 # --- Bloco Principal de Execução ---
 if __name__ == "__main__":
-    
-    inicio = time.perf_counter
-
-    prob.solve(pulp.PULP_CBC_CMD(msg=True))
-
-    fim = time.perf_counter()
-
-    tempo_total = fim - inicio
 
     # 1. Carrega os dados do arquivo
+    ## Insira o nome da instância de interesse no campo abaixo, no lugar do "apt18.txt"
     nome_do_arquivo = 'apt18.txt' 
     dados_da_instancia = carregar_instancia(nome_do_arquivo)
     
