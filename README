@@ -21,7 +21,7 @@ Tecnologias Utilizadas
 Estrutura do Repositório
     A organização das pastas segue a lógica de desenvolvimento da pesquisa:
 
-'''
+```
 ├── data/              # Instâncias de teste e datasets brutos
 ├── docs/              # Relatórios parciais e anotações teóricas
 ├── src/               # Código fonte principal
@@ -31,4 +31,4 @@ Estrutura do Repositório
 ├── results/           # Logs de execução, tabelas e gráficos gerados
 ├── tests/             # Testes unitários para validação dos algoritmos
 └── README.md          # Documentação do projeto
-'''
+```
