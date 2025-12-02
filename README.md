@@ -25,6 +25,22 @@ A organização das pastas segue a lógica de desenvolvimento da pesquisa:
 ├── Códigos/           # Códigos principais
 ├── Estudos/           # Códigos e anotações para estudos
 ├── Instancias/        # Instancias utilizadas nos testes
-├── Testes/            # Testes             # Testes unitários para validação dos algoritmos
+├── Testes/            # Testes
 └── README.md          # Documentação do projeto
 ```
+
+## Como executar 
+
+1. Clone o repositório:
+
+`git clone https://github.com/ubiratanpaniago/ic-otimizacao.git`
+
+2. Abra o VSCode com a pasta do projeto
+
+3. Abra o terminal e instale as dependencias:
+
+`pip install pulp`
+
+3. Execute o script:
+
+`python [nome do código]`
