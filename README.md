@@ -2,7 +2,8 @@
 
 # Desenvolvimento de uma Heurística Baseada em Recozimento Simulado para um Problema de Corte de Itens Irregulares
 
-Iniciação Científica (2024 - 2025) > Orientador: Layane Rodrigues de Souza Queiroz
+Iniciação Científica (2024 - 2025) 
+Orientadora: Layane Rodrigues de Souza Queiroz
 
 Instituição: Universidade Federal de Goiás
 
@@ -14,7 +15,7 @@ O objetivo principal é estudar e desenvolver um método de solução baseado na
 ## Tecnologias Utilizadas
 O projeto foi desenvolvido principalmente utilizando:
 
-Linguagem: Python 3.x
+Linguagem: Python 3
 
 Análise Numérica & Dados: PuLP
 
