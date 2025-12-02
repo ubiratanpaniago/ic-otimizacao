@@ -41,6 +41,20 @@ A organização das pastas segue a lógica de desenvolvimento da pesquisa:
 
 `pip install pulp`
 
-3. Execute o script:
+4. Navegue até a pasta dos códigos:
+
+`cd Códigos`
+
+5. Execute o script:
 
 `python [nome do código]`
+
+## Resultados Preliminares
+
+> ℹ️ **Nota:** Este projeto está em fase de **Desenvolvimento** e **Revisão Bibliográfica**.
+
+Atualmente, o foco está na análise comparativa de métodos da literatura para embasar a construção da nova heurística, cujos códigos iniciais já estão sendo commitados na pasta `Códigos`.
+
+## Histórico e Commits
+
+Este repositório serve também como um diário de bordo da pesquisa. A evolução do código pode ser acompanhada através do histórico de commits, documentando desde a implementação básica até as otimizações mais complexas.
