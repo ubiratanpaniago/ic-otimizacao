@@ -168,30 +168,12 @@ def solve_2opp_feasibility(L, C, items_list):
         print("Isto significa que não é possível empacotar TODOS os itens da lista no 'bin' fornecido.")
         return None
 
-def visualizar_solucao(L_cont, C_cont, solution):
-    """
-    Imprime uma visualização simples da grade de empacotamento.
-    """
-    if not solution:
-        return
-        
-    grid = [["." for _ in range(L_cont)] for _ in range(C_cont)]
-    for item in solution:
-        for y in range(item['q'], item['q'] + item['c']):
-            for x in range(item['p'], item['p'] + item['l']):
-                if 0 <= y < C_cont and 0 <= x < L_cont:
-                    grid[y][x] = str(item['item_id'] % 10) 
-    
-    print("\nVisualização do Empacotamento (Y=0 é embaixo):")
-    for r in reversed(grid):
-        print(" ".join(r))
-
 # --- Bloco Principal de Execução ---
 if __name__ == "__main__":
 
     # 1. Carrega os dados do arquivo
     ## Insira o nome da instância de interesse no campo abaixo, no lugar do "apt18.txt"
-    nome_do_arquivo = 'apt18.txt' 
+    nome_do_arquivo = 'exemplo.txt' 
     dados_da_instancia = carregar_instancia(nome_do_arquivo)
     
     if dados_da_instancia:
@@ -202,10 +184,3 @@ if __name__ == "__main__":
         
         # 3. Resolve o problema de viabilidade
         solucao_final = solve_2opp_feasibility(L_bin, C_bin, itens_para_solver)
-        
-        # 4. Visualiza a solução se encontrada
-        visualizar_solucao(L_bin, C_bin, solucao_final)
-
-
-        print(f"Status da Solução: {pulp.LpStatus[prob.status]}")
-        print(f"Tempo de Execução: {tempo_total:.4f} segundos")

@@ -1,0 +1,462 @@
+
+
+>>> NOVA BATERIA - Wed Dec 17 00:11:51 2025 <<<
+Instância: teste3D (a3D.txt)
+Dimensões Bin: 10 x 10
+Tempo: 1.3394s
+Status Solver: Optimal
+-------------------- RESULTADOS --------------------
+Valor Total (Área Preenchida): 23.0
+Taxa de Ocupação: 23.00%
+Valor Total (Área Preenchida): 23.0
+Taxa de Ocupação: 23.00%
+Itens Empacotados: 3 de 5
+=======================================================
+
+
+
+>>> NOVA BATERIA - Wed Dec 17 00:17:59 2025 <<<
+Instância: teste3D (a3D.txt)
+Dimensões Bin: 10 x 10
+Tempo: 1.2921s
+Status Solver: Optimal
+-------------------- RESULTADOS --------------------
+Valor Total (Área Preenchida): 23.0
+Taxa de Ocupação: 23.00%
+Valor Total (Área Preenchida): 23.0
+Taxa de Ocupação: 23.00%
+Itens Empacotados: 3 de 5
+=======================================================
+
+Instância: apt1 (apt1.txt)
+Dimensões Bin: 2097 x 1713
+Tempo: 18.4438s
+Status Solver: Time Limit (Building Vars)
+-------------------- RESULTADOS --------------------
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Itens Empacotados: 0 de 51
+=======================================================
+
+Instância: apt10 (apt10.txt)
+Dimensões Bin: 2284 x 2994
+Tempo: 15.6974s
+Status Solver: Time Limit (Building Vars)
+-------------------- RESULTADOS --------------------
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Itens Empacotados: 0 de 35
+=======================================================
+
+Instância: apt11 (apt11.txt)
+Dimensões Bin: 2840 x 2858
+Tempo: 19.6997s
+Status Solver: Time Limit (Building Vars)
+-------------------- RESULTADOS --------------------
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Itens Empacotados: 0 de 45
+=======================================================
+
+Instância: apt12 (apt12.txt)
+Dimensões Bin: 2866 x 1784
+Tempo: 15.1558s
+Status Solver: Time Limit (Building Vars)
+-------------------- RESULTADOS --------------------
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Itens Empacotados: 0 de 48
+=======================================================
+
+Instância: apt13 (apt13.txt)
+Dimensões Bin: 2711 x 2110
+Tempo: 14.8984s
+Status Solver: Time Limit (Building Vars)
+-------------------- RESULTADOS --------------------
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Itens Empacotados: 0 de 52
+=======================================================
+
+Instância: apt14 (apt14.txt)
+Dimensões Bin: 1856 x 2636
+Tempo: 20.3050s
+Status Solver: Time Limit (Building Vars)
+-------------------- RESULTADOS --------------------
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Itens Empacotados: 0 de 53
+=======================================================
+
+Instância: apt15 (apt15.txt)
+Dimensões Bin: 2070 x 2729
+Tempo: 15.7858s
+Status Solver: Time Limit (Building Vars)
+-------------------- RESULTADOS --------------------
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Itens Empacotados: 0 de 44
+=======================================================
+
+Instância: apt16 (apt16.txt)
+Dimensões Bin: 2885 x 1715
+Tempo: 10.6921s
+Status Solver: Time Limit (Building Vars)
+-------------------- RESULTADOS --------------------
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Itens Empacotados: 0 de 36
+=======================================================
+
+Instância: apt17 (apt17.txt)
+Dimensões Bin: 2359 x 1656
+Tempo: 16.3307s
+Status Solver: Time Limit (Building Vars)
+-------------------- RESULTADOS --------------------
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Itens Empacotados: 0 de 48
+=======================================================
+
+Instância: apt18 (apt18.txt)
+Dimensões Bin: 1793 x 1875
+Tempo: 13.6091s
+Status Solver: Time Limit (Building Vars)
+-------------------- RESULTADOS --------------------
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Itens Empacotados: 0 de 48
+=======================================================
+
+Instância: apt19 (apt19.txt)
+Dimensões Bin: 2020 x 2796
+Tempo: 13.7710s
+Status Solver: Time Limit (Building Vars)
+-------------------- RESULTADOS --------------------
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Itens Empacotados: 0 de 54
+=======================================================
+
+Instância: apt2 (apt2.txt)
+Dimensões Bin: 2600 x 1612
+Tempo: 15.4742s
+Status Solver: Time Limit (Building Vars)
+-------------------- RESULTADOS --------------------
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Itens Empacotados: 0 de 58
+=======================================================
+
+Instância: apt20 (apt20.txt)
+Dimensões Bin: 1839 x 2829
+Tempo: 24.3967s
+Status Solver: Time Limit (Building Vars)
+-------------------- RESULTADOS --------------------
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Itens Empacotados: 0 de 59
+=======================================================
+
+Instância: apt3 (apt3.txt)
+Dimensões Bin: 2662 x 1941
+Tempo: 11.4359s
+Status Solver: Time Limit (Building Vars)
+-------------------- RESULTADOS --------------------
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Itens Empacotados: 0 de 35
+=======================================================
+
+Instância: apt4 (apt4.txt)
+Dimensões Bin: 1674 x 2090
+Tempo: 15.9053s
+Status Solver: Time Limit (Building Vars)
+-------------------- RESULTADOS --------------------
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Itens Empacotados: 0 de 54
+=======================================================
+
+Instância: apt5 (apt5.txt)
+Dimensões Bin: 2090 x 2138
+Tempo: 15.8970s
+Status Solver: Time Limit (Building Vars)
+-------------------- RESULTADOS --------------------
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Itens Empacotados: 0 de 42
+=======================================================
+
+Instância: apt6 (apt6.txt)
+Dimensões Bin: 2222 x 2726
+Tempo: 10.9597s
+Status Solver: Time Limit (Building Vars)
+-------------------- RESULTADOS --------------------
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Itens Empacotados: 0 de 49
+=======================================================
+
+Instância: apt7 (apt7.txt)
+Dimensões Bin: 2899 x 2614
+Tempo: 17.0235s
+Status Solver: Time Limit (Building Vars)
+-------------------- RESULTADOS --------------------
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Itens Empacotados: 0 de 53
+=======================================================
+
+Instância: apt8 (apt8.txt)
+Dimensões Bin: 2313 x 1962
+Tempo: 11.2267s
+Status Solver: Time Limit (Building Vars)
+-------------------- RESULTADOS --------------------
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Itens Empacotados: 0 de 59
+=======================================================
+
+Instância: apt9 (apt9.txt)
+Dimensões Bin: 2775 x 2105
+Tempo: 11.4470s
+Status Solver: Time Limit (Building Vars)
+-------------------- RESULTADOS --------------------
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Itens Empacotados: 0 de 31
+=======================================================
+
+Instância: b1 (b1.txt)
+Dimensões Bin: 4000 x 2000
+Tempo: 25.5576s
+Status Solver: Time Limit (Building Vars)
+-------------------- RESULTADOS --------------------
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Itens Empacotados: 0 de 30
+=======================================================
+
+Instância: b2 (b2.txt)
+Dimensões Bin: 4000 x 2000
+Tempo: 19.7470s
+Status Solver: Time Limit (Building Vars)
+-------------------- RESULTADOS --------------------
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Itens Empacotados: 0 de 30
+=======================================================
+
+Instância: b3 (b3.txt)
+Dimensões Bin: 4000 x 2000
+Tempo: 22.4666s
+Status Solver: Time Limit (Building Vars)
+-------------------- RESULTADOS --------------------
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Itens Empacotados: 0 de 30
+=======================================================
+
+Instância: b4 (b4.txt)
+Dimensões Bin: 4000 x 2000
+Tempo: 18.8310s
+Status Solver: Time Limit (Building Vars)
+-------------------- RESULTADOS --------------------
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Itens Empacotados: 0 de 30
+=======================================================
+
+Instância: b5 (b5.txt)
+Dimensões Bin: 4000 x 2000
+Tempo: 18.9916s
+Status Solver: Time Limit (Building Vars)
+-------------------- RESULTADOS --------------------
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Itens Empacotados: 0 de 30
+=======================================================
+
+Instância: b6 (b6.txt)
+Dimensões Bin: 4000 x 2000
+Tempo: 25.3054s
+Status Solver: Time Limit (Building Vars)
+-------------------- RESULTADOS --------------------
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Itens Empacotados: 0 de 30
+=======================================================
+
+Instância: b7 (b7.txt)
+Dimensões Bin: 4000 x 2000
+Tempo: 25.9639s
+Status Solver: Time Limit (Building Vars)
+-------------------- RESULTADOS --------------------
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Itens Empacotados: 0 de 180
+=======================================================
+
+Instância: cgcut1 (cgcut1.txt)
+Dimensões Bin: 15 x 10
+Tempo: 0.3518s
+Status Solver: Optimal
+-------------------- RESULTADOS --------------------
+Valor Total (Área Preenchida): 163.0
+Taxa de Ocupação: 108.67%
+Valor Total (Área Preenchida): 163.0
+Taxa de Ocupação: 108.67%
+Itens Empacotados: 7 de 7
+=======================================================
+
+Instância: cgcut2 (cgcut2.txt)
+Dimensões Bin: 40 x 70
+Tempo: 19.2340s
+Status Solver: Not Solved
+-------------------- RESULTADOS --------------------
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Itens Empacotados: 0 de 10
+=======================================================
+
+Instância: cgcut3 (cgcut3.txt)
+Dimensões Bin: 40 x 70
+Tempo: 10.1120s
+Status Solver: Time Limit (Cuts)
+-------------------- RESULTADOS --------------------
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Itens Empacotados: 0 de 20
+=======================================================
+
+Instância: Random_28e_n050m05_10-50 (ex1.txt)
+Dimensões Bin: 50 x 50
+Tempo: 13.9533s
+Status Solver: Not Solved
+-------------------- RESULTADOS --------------------
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Itens Empacotados: 0 de 5
+=======================================================
+
+Instância: gcut1 (gcut1.txt)
+Dimensões Bin: 250 x 250
+Tempo: 11.1767s
+Status Solver: Time Limit (Constraints)
+-------------------- RESULTADOS --------------------
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Itens Empacotados: 0 de 10
+=======================================================
+
+Instância: gcut10 (gcut10.txt)
+Dimensões Bin: 1000 x 1000
+Tempo: 10.6690s
+Status Solver: Time Limit (Building Vars)
+-------------------- RESULTADOS --------------------
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Itens Empacotados: 0 de 20
+=======================================================
+
+Instância: gcut11 (gcut11.txt)
+Dimensões Bin: 1000 x 1000
+Tempo: 10.7608s
+Status Solver: Time Limit (Building Vars)
+-------------------- RESULTADOS --------------------
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Itens Empacotados: 0 de 30
+=======================================================
+
+Instância: gcut12 (gcut12.txt)
+Dimensões Bin: 1000 x 1000
+Tempo: 11.5451s
+Status Solver: Time Limit (Building Vars)
+-------------------- RESULTADOS --------------------
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Itens Empacotados: 0 de 50
+=======================================================
+
+Instância: gcut13 (gcut13.txt)
+Dimensões Bin: 3000 x 3000
+Tempo: 29.5153s
+Status Solver: Time Limit (Building Vars)
+-------------------- RESULTADOS --------------------
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Valor Total (Área Preenchida): 0
+Taxa de Ocupação: 0.00%
+Itens Empacotados: 0 de 32
+=======================================================
+

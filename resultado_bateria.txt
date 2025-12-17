@@ -1,0 +1,222 @@
+
+
+>>> NOVA BATERIA DE TESTES - Tue Dec 16 22:48:11 2025 <<<
+--------------------------------------------------
+
+
+>>> NOVA BATERIA DE TESTES - Tue Dec 16 22:49:07 2025 <<<
+--------------------------------------------------
+
+
+>>> NOVA BATERIA - Tue Dec 16 22:56:15 2025 <<<
+Arquivo: ed1.txt | Instância: ed1
+Bin: 9x7 | Itens: 4
+Tempo Total: 0.1952s | Status: Optimal
+Solução: VIÁVEL
+------------------------------
+Arquivo: ed2.txt | Instância: ed2
+Bin: 13x11 | Itens: 20
+Tempo Total: 0.2884s | Status: Infeasible
+Solução: Infeasible
+------------------------------
+Arquivo: ed3.txt | Instância: ed3
+Bin: 15x10 | Itens: 4
+Tempo Total: 0.1000s | Status: Infeasible
+Solução: Infeasible
+------------------------------
+Arquivo: exemplo.txt | Instância: exemplo
+Bin: 15x12 | Itens: 4
+Tempo Total: 0.2563s | Status: Optimal
+Solução: VIÁVEL
+------------------------------
+
+
+>>> NOVA BATERIA - Tue Dec 16 23:10:38 2025 <<<
+Arquivo: ed1.txt | Instância: ed1
+Bin: 9x7 | Itens: 4
+Tempo Total: 0.2290s | Status: Optimal
+Solução: VIÁVEL
+------------------------------
+Arquivo: ed2.txt | Instância: ed2
+Bin: 13x11 | Itens: 20
+Tempo Total: 0.3313s | Status: Infeasible
+Solução: Infeasible
+------------------------------
+Arquivo: ed3.txt | Instância: ed3
+Bin: 15x10 | Itens: 4
+Tempo Total: 0.1241s | Status: Infeasible
+Solução: Infeasible
+------------------------------
+Arquivo: exemplo.txt | Instância: exemplo
+Bin: 15x12 | Itens: 4
+Tempo Total: 0.9650s | Status: Optimal
+Solução: VIÁVEL
+------------------------------
+
+
+>>> NOVA BATERIA - Tue Dec 16 23:24:25 2025 <<<
+Arquivo: ed1.txt | Instância: ed1
+Bin: 9x7 | Itens: 4
+Tempo: 0.2622s | Status: Optimal | Altura: 5.0
+Solução: OTIMIZADA (Viável)
+------------------------------
+Arquivo: ed2.txt | Instância: ed2
+Bin: 13x11 | Itens: 20
+Tempo: 0.3648s | Status: Infeasible
+Solução: Infeasible
+------------------------------
+Arquivo: ed3.txt | Instância: ed3
+Bin: 15x10 | Itens: 4
+Tempo: 0.1148s | Status: Infeasible
+Solução: Infeasible
+------------------------------
+Arquivo: exemplo.txt | Instância: exemplo
+Bin: 15x12 | Itens: 4
+Tempo: 0.8549s | Status: Optimal | Altura: 12.0
+Solução: OTIMIZADA (Viável)
+------------------------------
+
+
+>>> NOVA BATERIA - Tue Dec 16 23:47:58 2025 <<<
+Arquivo: ed1.txt | Instância: ed1
+
+
+>>> NOVA BATERIA - Tue Dec 16 23:59:11 2025 <<<
+Arquivo: ed1.txt | Instância: ed1
+Status: Optimal | Valor Total (Área): 38.0 (60.32%)
+Itens Escolhidos: 4/4
+------------------------------
+
+
+>>> NOVA BATERIA - Wed Dec 17 00:00:15 2025 <<<
+Arquivo: ed1.txt | Instância: ed1
+Status: Optimal | Valor Total (Área): 38.0 (60.32%)
+Itens Escolhidos: 4/4
+------------------------------
+
+
+>>> NOVA BATERIA - Wed Dec 17 00:00:37 2025 <<<
+Arquivo: ed1.txt | Instância: ed1
+Status: Optimal | Valor Total (Área): 38.0 (60.32%)
+Itens Escolhidos: 4/4
+------------------------------
+
+
+>>> NOVA BATERIA - Wed Dec 17 00:01:29 2025 <<<
+Instância: ed1 (ed1.txt)
+Dimensões Bin: 9 x 7
+Tempo: 0.1673s
+Status Solver: Optimal
+-------------------- RESULTADOS --------------------
+Valor Total (Área Preenchida): 38.0
+Taxa de Ocupação: 60.32%
+Itens Empacotados: 4 de 4
+
+Detalhes (ID: X, Y | LxA):
+  Item  0: (  3,   1) | 5x2
+  Item  1: (  4,   4) | 5x2
+  Item  2: (  0,   0) | 3x3
+  Item  3: (  1,   4) | 3x3
+=======================================================
+
+Instância: ed2 (ed2.txt)
+Dimensões Bin: 13 x 11
+Tempo: 9.9644s
+Status Solver: Optimal
+-------------------- RESULTADOS --------------------
+Valor Total (Área Preenchida): 136.0
+Taxa de Ocupação: 95.10%
+Itens Empacotados: 8 de 20
+
+Detalhes (ID: X, Y | LxA):
+  Item  0: (  7,   8) | 3x3
+  Item  1: (  0,   3) | 3x3
+  Item  3: (  3,   3) | 3x3
+  Item  4: ( 10,   8) | 3x3
+  Item  7: (  7,   5) | 5x3
+  Item  8: (  0,   0) | 5x3
+  Item 16: (  0,   6) | 7x5
+  Item 17: (  6,   0) | 7x5
+=======================================================
+
+Instância: ed3 (ed3.txt)
+Dimensões Bin: 15 x 10
+Tempo: 0.8525s
+Status Solver: Optimal
+-------------------- RESULTADOS --------------------
+Valor Total (Área Preenchida): 105.0
+Taxa de Ocupação: 70.00%
+Itens Empacotados: 2 de 4
+
+Detalhes (ID: X, Y | LxA):
+  Item  2: (  7,   2) | 8x7
+  Item  3: (  0,   3) | 7x7
+=======================================================
+
+Instância: exemplo (exemplo.txt)
+Dimensões Bin: 15 x 12
+Tempo: 0.2659s
+Status Solver: Optimal
+-------------------- RESULTADOS --------------------
+Valor Total (Área Preenchida): 135.0
+Taxa de Ocupação: 75.00%
+Itens Empacotados: 4 de 4
+
+Detalhes (ID: X, Y | LxA):
+  Item  0: (  0,   1) | 8x7
+  Item  1: ( 10,   0) | 5x7
+  Item  2: (  9,   7) | 4x5
+  Item  3: (  0,   9) | 8x3
+=======================================================
+
+
+
+>>> NOVA BATERIA - Wed Dec 17 00:06:42 2025 <<<
+Instância: ed1 (ed1.txt)
+Dimensões Bin: 9 x 7
+Tempo: 0.1957s
+Status Solver: Optimal
+-------------------- RESULTADOS --------------------
+Valor Total (Área Preenchida): 38.0
+Taxa de Ocupação: 60.32%
+Valor Total (Área Preenchida): 38.0
+Taxa de Ocupação: 60.32%
+Itens Empacotados: 4 de 4
+=======================================================
+
+Instância: ed2 (ed2.txt)
+Dimensões Bin: 13 x 11
+Tempo: 9.9786s
+Status Solver: Optimal
+-------------------- RESULTADOS --------------------
+Valor Total (Área Preenchida): 136.0
+Taxa de Ocupação: 95.10%
+Valor Total (Área Preenchida): 136.0
+Taxa de Ocupação: 95.10%
+Itens Empacotados: 8 de 20
+=======================================================
+
+Instância: ed3 (ed3.txt)
+Dimensões Bin: 15 x 10
+Tempo: 0.9889s
+Status Solver: Optimal
+-------------------- RESULTADOS --------------------
+Valor Total (Área Preenchida): 105.0
+Taxa de Ocupação: 70.00%
+Valor Total (Área Preenchida): 105.0
+Taxa de Ocupação: 70.00%
+Itens Empacotados: 2 de 4
+=======================================================
+
+Instância: exemplo (exemplo.txt)
+Dimensões Bin: 15 x 12
+Tempo: 0.2820s
+Status Solver: Optimal
+-------------------- RESULTADOS --------------------
+Valor Total (Área Preenchida): 135.0
+Taxa de Ocupação: 75.00%
+Valor Total (Área Preenchida): 135.0
+Taxa de Ocupação: 75.00%
+Itens Empacotados: 4 de 4
+=======================================================
+
