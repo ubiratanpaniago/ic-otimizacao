@@ -2,6 +2,8 @@ import os
 import time
 import random
 import math
+import matplotlib.pyplot as plt
+import matplotlib.patches as patches
 
 # --- Estrutura de Dados ---
 class Item:
@@ -18,28 +20,46 @@ class Instance:
         self.H = container_h
         self.items = items
 
-# --- Heurística Bottom-Left (BL) ---
+# --- Função de Visualização ---
+def plot_solution(container_w, container_h, placed_items, instance_name, area_total):
+    fig, ax = plt.subplots(1)
+    ax.set_xlim(0, container_w)
+    ax.set_ylim(0, container_h)
+    ax.set_aspect('equal')
+    
+    # Desenha o container
+    rect_container = patches.Rectangle((0, 0), container_w, container_h, linewidth=2, edgecolor='black', facecolor='none')
+    ax.add_patch(rect_container)
+    
+    # Desenha cada item
+    for p in placed_items:
+        # Cor aleatória para diferenciar itens
+        color = [random.random() for _ in range(3)]
+        rect = patches.Rectangle((p['x'], p['y']), p['w'], p['h'], linewidth=1, edgecolor='white', facecolor=color, alpha=0.7)
+        ax.add_patch(rect)
+        # Opcional: colocar o ID do item
+        # plt.text(p['x'] + p['w']/2, p['y'] + p['h']/2, str(p['id']), fontsize=8, ha='center')
+
+    plt.title(f"Instância: {instance_name}\nÁrea Total: {area_total}")
+    plt.savefig(f"layout_{instance_name}.png")
+    plt.close() 
+
+# --- Bottom-Left (BL) ---
 def bottom_left_placement(permutation, container_w, container_h):
     placed_items = []
     total_area = 0
     
     for item in permutation:
-        # Tenta encontrar a posição (x, y) mais baixa e depois mais à esquerda
-        # Para simplificar, testamos posições baseadas nos cantos dos itens já colocados
-        best_x, best_y = None, None
-        
-        # Pontos candidatos (cantos superiores e direitos de itens já posicionados + (0,0))
         candidates = [(0, 0)]
         for p in placed_items:
             candidates.append((p['x'] + p['w'], p['y']))
             candidates.append((p['x'], p['y'] + p['h']))
         
-        # Ordena candidatos por Y e depois por X (essência do Bottom-Left)
         candidates.sort(key=lambda c: (c[1], c[0]))
         
+        placed = False
         for cx, cy in candidates:
             if cx + item.w <= container_w and cy + item.h <= container_h:
-                # Verifica sobreposição com itens já colocados
                 overlap = False
                 for p in placed_items:
                     if not (cx + item.w <= p['x'] or cx >= p['x'] + p['w'] or
@@ -48,18 +68,15 @@ def bottom_left_placement(permutation, container_w, container_h):
                         break
                 
                 if not overlap:
-                    best_x, best_y = cx, cy
-                    break # Encontrou a posição BL para este item
-        
-        if best_x is not None:
-            placed_items.append({'x': best_x, 'y': best_y, 'w': item.w, 'h': item.h})
-            total_area += item.area
-            
+                    placed_items.append({'id': item.id, 'x': cx, 'y': cy, 'w': item.w, 'h': item.h})
+                    total_area += item.area
+                    placed = True
+                    break
+    
     return total_area, placed_items
 
-# --- Simulated Annealing (SA) ---
-def simulated_annealing(instance, t0=1000, alpha=0.95, iter_max=100):
-    # Solução inicial: ordem original dos itens
+# --- Recozimento Simulado (SA) ---
+def recozimento_simulado(instance, t0=1000, alpha=0.95, iter_max=50):
     current_order = list(instance.items)
     random.shuffle(current_order)
     current_eval, _ = bottom_left_placement(current_order, instance.W, instance.H)
@@ -68,61 +85,87 @@ def simulated_annealing(instance, t0=1000, alpha=0.95, iter_max=100):
     best_eval = current_eval
     
     t = t0
-    while t > 0.1:
+    step = 0
+    print(f"  [RS] Iniciando Otimização. Temperatura Inicial: {t0}")
+
+    while t > 1.0:
+        improved = False
         for _ in range(iter_max):
-            # Gera vizinho trocando dois itens de lugar
             neighbor = list(current_order)
             i, j = random.sample(range(len(neighbor)), 2)
             neighbor[i], neighbor[j] = neighbor[j], neighbor[i]
             
             neighbor_eval, _ = bottom_left_placement(neighbor, instance.W, instance.H)
             
-            # Critério de aceitação de Metropolis
-            delta = neighbor_eval - current_eval # Maximizar area -> delta positivo é bom
-            if delta > 0 or random.random() < math.exp(delta / t):
+            delta = neighbor_eval - current_eval
+            if delta > 0 or (t > 0 and random.random() < math.exp(delta / t)):
                 current_order = neighbor
                 current_eval = neighbor_eval
                 
                 if current_eval > best_eval:
                     best_eval = current_eval
                     best_order = list(current_order)
+                    improved = True
         
-        t *= alpha # Resfriamento
+        if step % 5 == 0: # Printa a cada 5 reduções de temperatura
+            print(f"    Passo {step} | Temp: {t:.2f} | Melhor Área: {best_eval}")
+        
+        t *= alpha
+        step += 1
         
     return best_eval, best_order
 
-# --- IO e Execução ---
+# --- Leitura ---
 def load_instance(filepath):
+    # (Mesma lógica do código anterior)
     with open(filepath, 'r') as f:
-        lines = f.readlines()
+        lines = [line for line in f.readlines() if line.strip() and not line.startswith('#')]
         num_items = int(lines[0].split('#')[0].strip())
         cont_w, cont_h = map(int, lines[1].split('#')[0].strip().split())
         items = []
         for i in range(2, 2 + num_items):
-            w, h, _ = map(int, lines[i].split('#')[0].strip().split())
+            parts = lines[i].split()
+            w, h = int(parts[0]), int(parts[1])
             items.append(Item(i-2, w, h))
     return Instance(os.path.basename(filepath), cont_w, cont_h, items)
 
+# --- Execução Principal ---
 def main():
-    folder_path = './testeinst' # Caminho da sua pasta
-    results_file = 'resultados_otimizacao_teste.txt'
+    folder_path = './instancias-testes' 
+    results_file = 'resultados_detalhados_t0=1000_a=95.txt'
     
+    if not os.path.exists(folder_path):
+        print(f"Erro: Pasta {folder_path} não encontrada.")
+        return
+
     with open(results_file, 'w') as out:
-        out.write("Instancia | Valor Solucao (Area) | Tempo (s)\n")
-        out.write("-" * 50 + "\n")
+        out.write("Instancia | Area Maxima | Tempo (s)\n")
         
         for filename in os.listdir(folder_path):
             if filename.endswith(".txt"):
+                print(f"\n>>> Processando: {filename}")
                 start_time = time.time()
-                inst = load_instance(os.path.join(folder_path, filename))
                 
-                print(f"Resolvendo {inst.name}...")
-                best_area, _ = simulated_annealing(inst)
+                inst = load_instance(os.path.join(folder_path, filename))
+                best_area, best_order = recozimento_simulado(inst)
+                
+                # Gera o resultado final com a melhor ordem encontrada
+                _, final_placement = bottom_left_placement(best_order, inst.W, inst.H)
                 
                 end_time = time.time()
-                total_time = end_time - start_time
+                duracao = end_time - start_time
+
+                # --- Verificação/Depuração ---
+                print(f"  [OK] Finalizado. Área: {best_area} em {duracao:.2f}s")
+                print(f"  [INFO] Lista de posições gerada pelo Bottom-Left (Top 5):")
+                for p in final_placement[:5]:
+                    print(f"    Item {p['id']}: pos({p['x']}, {p['y']}) dim({p['w']}x{p['h']})")
                 
-                out.write(f"{inst.name} | {best_area} | {total_time:.4f}\n")
+                # Gera imagem do resultado
+                # plot_solution(inst.W, inst.H, final_placement, inst.name, best_area)
+                # print(f"  [IMG] Gráfico salvo como 'layout_{inst.name}.png'")
+
+                out.write(f"{inst.name} | {best_area} | {duracao:.4f}\n")
 
 if __name__ == "__main__":
     main()
