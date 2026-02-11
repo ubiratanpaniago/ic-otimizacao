@@ -76,7 +76,7 @@ def bottom_left_placement(permutation, container_w, container_h):
     return total_area, placed_items
 
 # --- Recozimento Simulado (SA) ---
-def recozimento_simulado(instance, t0=1000, alpha=0.95, iter_max=50):
+def recozimento_simulado(instance, t0=1000, alpha=0.98, iter_max=50):
     current_order = list(instance.items)
     random.shuffle(current_order)
     current_eval, _ = bottom_left_placement(current_order, instance.W, instance.H)
@@ -132,7 +132,7 @@ def load_instance(filepath):
 # --- Execução Principal ---
 def main():
     folder_path = './instancias-testes' 
-    results_file = 'resultados_detalhados_t0=1000_a=95.txt'
+    results_file = 'resultados_detalhados_t0=1000_a=98.txt'
     
     if not os.path.exists(folder_path):
         print(f"Erro: Pasta {folder_path} não encontrada.")
