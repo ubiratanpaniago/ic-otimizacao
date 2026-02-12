@@ -131,8 +131,8 @@ def load_instance(filepath):
 
 # --- Execução Principal ---
 def main():
-    folder_path = './instancias-testes' 
-    results_file = 'resultados_detalhados_t0=1000_a=98.txt'
+    folder_path = './testeinst' 
+    results_file = 'resulttesteinst'
     
     if not os.path.exists(folder_path):
         print(f"Erro: Pasta {folder_path} não encontrada.")
@@ -162,8 +162,8 @@ def main():
                     print(f"    Item {p['id']}: pos({p['x']}, {p['y']}) dim({p['w']}x{p['h']})")
                 
                 # Gera imagem do resultado
-                # plot_solution(inst.W, inst.H, final_placement, inst.name, best_area)
-                # print(f"  [IMG] Gráfico salvo como 'layout_{inst.name}.png'")
+                plot_solution(inst.W, inst.H, final_placement, inst.name, best_area)
+                print(f"  [IMG] Gráfico salvo como 'layout_{inst.name}.png'")
 
                 out.write(f"{inst.name} | {best_area} | {duracao:.4f}\n")
 
