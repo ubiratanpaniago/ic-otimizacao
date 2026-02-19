@@ -2,7 +2,7 @@
 
 # Desenvolvimento de uma Heurística Baseada em Recozimento Simulado para um Problema de Corte de Itens Irregulares
 
-Iniciação Científica (2024 - 2025) 
+Iniciação Científica (2025 - 2026) 
 Orientadora: Layane Rodrigues de Souza Queiroz
 
 Instituição: Universidade Federal de Goiás
@@ -23,10 +23,10 @@ Análise Numérica & Dados: PuLP
 A organização das pastas segue a lógica de desenvolvimento da pesquisa:
 
 ```
-├── Códigos/           # Códigos principais
-├── Estudos/           # Códigos e anotações para estudos
-├── Instancias/        # Instancias utilizadas nos testes
-├── Testes/            # Testes
+├── data/              # Instancias utilizadas nos testes
+├── docs/              # Códigos e anotações para estudos
+├── results/           # Resultados
+├── src/               # Códigos
 └── README.md          # Documentação do projeto
 ```
 
@@ -45,7 +45,7 @@ A organização das pastas segue a lógica de desenvolvimento da pesquisa:
 
 4. Navegue até a pasta dos códigos:
 
-`cd Códigos`
+`cd src`
 
 5. Execute o script:
 

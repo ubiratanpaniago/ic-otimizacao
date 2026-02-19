@@ -1,0 +1,5 @@
+Instancia | Area Maxima | Tempo (s)
+ed1.txt | 38 | 0.3405
+ed2.txt | 133 | 2.6386
+ed3.txt | 105 | 0.2404
+exemplo.txt | 135 | 0.3020
