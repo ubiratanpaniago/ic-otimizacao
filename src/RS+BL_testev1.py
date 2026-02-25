@@ -22,7 +22,7 @@ class Instance:
         self.items = items
 
 # --- Função de Visualização ---
-def plot_solution(container_w, container_h, placed_items, instance_name, area_total):
+def plot_solution(container_w, container_h, placed_items, instance_name, area_total, caminho_salvamento):
     fig, ax = plt.subplots(1)
     ax.set_xlim(0, container_w)
     ax.set_ylim(0, container_h)
@@ -42,7 +42,7 @@ def plot_solution(container_w, container_h, placed_items, instance_name, area_to
         # plt.text(p['x'] + p['w']/2, p['y'] + p['h']/2, str(p['id']), fontsize=8, ha='center')
 
     plt.title(f"Instância: {instance_name}\nÁrea Total: {area_total}")
-    plt.savefig(f"layout_{instance_name}.png")
+    plt.savefig(caminho_salvamento)
     plt.close() 
 
 def preparar_pasta(nome_teste):
@@ -154,6 +154,10 @@ def main():
 
     folder_path = './data/instancias' 
     results_file = os.path.join(pasta_teste, 'resulttesteinst.txt')
+
+    # Define e cria subpasta de imagens
+    pasta_imagens = os.path.join(pasta_teste, 'imagens')
+    os.makedirs(pasta_imagens, exist_ok=True)
     
     if not os.path.exists(folder_path):
         print(f"Erro: Pasta {folder_path} não encontrada.")
@@ -183,11 +187,11 @@ def main():
                     print(f"    Item {p['id']}: pos({p['x']}, {p['y']}) dim({p['w']}x{p['h']})")
 
                 # Define o caminho do salvamento da imagem
-                caminho_img = os.path.join(pasta_teste, f"layout_{inst.name}.png")
+                caminho_img = os.path.join(pasta_imagens, f"layout_{inst.name}.png")
                 
                 # Gera imagem do resultado
-                plot_solution(inst.W, inst.H, final_placement, inst.name, best_area)
-                print(f"  [IMG] Gráfico salvo como 'layout_{inst.name}.png'")
+                plot_solution(inst.W, inst.H, final_placement, inst.name, best_area, caminho_img)
+                print(f"  [IMG] Gráfico salvo como 'layout_{caminho_img}.png'")
 
                 out.write(f"{inst.name} | {best_area} | {duracao:.4f}\n")
 
