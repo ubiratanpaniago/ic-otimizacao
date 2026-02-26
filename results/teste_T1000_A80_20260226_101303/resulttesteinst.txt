@@ -1,0 +1,19 @@
+T1000 A80
+
+Instancia | Area Maxima | Tempo (s)
+cgcut1.txt | 98 | 0.0662
+cgcut2.txt | 2188 | 0.1902
+ed1.txt | 38 | 0.0276
+ed3.txt | 105 | 0.0205
+ngcut1.txt | 75 | 0.0369
+ngcut10.txt | 660 | 0.0316
+ngcut11.txt | 651 | 0.0537
+ngcut12.txt | 792 | 0.1443
+ngcut2.txt | 83 | 0.0518
+ngcut3.txt | 90 | 0.0853
+ngcut4.txt | 108 | 0.0366
+ngcut5.txt | 130 | 0.0526
+ngcut6.txt | 142 | 0.1450
+ngcut7.txt | 154 | 0.0421
+ngcut8.txt | 312 | 0.0624
+ngcut9.txt | 372 | 0.1923
