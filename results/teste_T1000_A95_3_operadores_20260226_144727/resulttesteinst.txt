@@ -1,0 +1,17 @@
+Instancia | Area Maxima | Tempo (s)
+cgcut1.txt | 98 | 2.0289
+cgcut2.txt | 2188 | 4.3670
+ed1.txt | 38 | 0.7876
+ed3.txt | 105 | 0.5998
+ngcut1.txt | 61 | 0.8513
+ngcut10.txt | 660 | 1.0536
+ngcut11.txt | 582 | 2.0749
+ngcut12.txt | 760 | 2.6334
+ngcut2.txt | 83 | 1.6082
+ngcut3.txt | 85 | 2.7892
+ngcut4.txt | 108 | 1.1206
+ngcut5.txt | 130 | 1.6655
+ngcut6.txt | 128 | 2.8283
+ngcut7.txt | 154 | 1.1250
+ngcut8.txt | 276 | 1.9142
+ngcut9.txt | 349 | 2.7757

@@ -87,16 +87,27 @@ def bottom_left_placement(permutation, container_w, container_h):
                     placed = True
                     break
     
-    return total_area, placed_items
+    # Calcula quão longe as peças estão da origem (x=0, y=0)
+    # Somamos a coordenada do topo-direito (x + w, y + h) de cada peça colocada
+    dispersao = sum(p['x'] + p['w'] + p['y'] + p['h'] for p in placed_items)
+    
+    # Adicionamos a área total (que é o peso principal) 
+    # E subtraímos um valor BEM PEQUENO da dispersão para servir apenas de desempate
+    # Multiplicamos por 0.0001 para garantir que a área sempre seja mais importante que a compactação
+    score_avaliacao = total_area - (dispersao * 0.0001)
+
+    return score_avaliacao, placed_items, total_area
 
 # --- Recozimento Simulado (SA) ---
-def recozimento_simulado(instance, t0=1000, alpha=0.99, iter_max=50):
+def recozimento_simulado(instance, t0=1000, alpha=0.95, iter_max=300):
     current_order = list(instance.items)
-    random.shuffle(current_order)
-    current_eval, _ = bottom_left_placement(current_order, instance.W, instance.H)
+    # random.shuffle(current_order)
+    current_order.sort(key=lambda x: x.area, reverse=True)
+    current_eval, _, current_area = bottom_left_placement(current_order, instance.W, instance.H)
     
     best_order = list(current_order)
     best_eval = current_eval
+    best_area = current_area # Guarda a melhor área
     
     t = t0
     step = 0
@@ -118,7 +129,6 @@ def recozimento_simulado(instance, t0=1000, alpha=0.99, iter_max=50):
             elif r < 0.7:
                 # 2. INVERSÃO / 2-Opt (30% de chance): Inverte um bloco de itens
                 i, j = sorted(random.sample(range(len(neighbor)), 2))
-                # j+1 garante que o elemento no índice j também faça parte da inversão
                 neighbor[i:j+1] = reversed(neighbor[i:j+1])
                 
             else:
@@ -130,7 +140,7 @@ def recozimento_simulado(instance, t0=1000, alpha=0.99, iter_max=50):
                 neighbor.insert(idx_destino, item_removido)
             
             # Avalia o novo vizinho
-            neighbor_eval, _ = bottom_left_placement(neighbor, instance.W, instance.H)
+            neighbor_eval, _, neighbor_area = bottom_left_placement(neighbor, instance.W, instance.H)
             
             delta = neighbor_eval - current_eval
             
@@ -149,7 +159,7 @@ def recozimento_simulado(instance, t0=1000, alpha=0.99, iter_max=50):
         t *= alpha
         step += 1
         
-    return best_eval, best_order
+    return best_area, best_order
 
 # --- Leitura ---
 def load_instance(filepath):
@@ -168,8 +178,7 @@ def load_instance(filepath):
 # --- Execução Principal ---
 def main():
     # 1. Defina um identificador para essa rodada (ex: 'teste_T1000_A90')
-    # Pode ser algo que você muda manualmente aqui antes de dar o "play"
-    identificador_teste = "teste_T1000_A99_3_operadores"
+    identificador_teste = "teste_T1000_A95_3_operadores"
 
     # 2. Cria a pasta com o identificador + data/hora
     pasta_teste = preparar_pasta(identificador_teste)
@@ -197,7 +206,7 @@ def main():
                 best_area, best_order = recozimento_simulado(inst)
                 
                 # Gera o resultado final com a melhor ordem encontrada
-                _, final_placement = bottom_left_placement(best_order, inst.W, inst.H)
+                _, final_placement, _ = bottom_left_placement(best_order, inst.W, inst.H)
                 
                 end_time = time.time()
                 duracao = end_time - start_time
