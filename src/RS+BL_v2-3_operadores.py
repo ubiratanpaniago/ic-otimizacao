@@ -178,7 +178,7 @@ def load_instance(filepath):
 # --- Execução Principal ---
 def main():
     # 1. Defina um identificador para essa rodada (ex: 'teste_T1000_A90')
-    identificador_teste = "teste_T1000_A95_3_operadores"
+    identificador_teste = "teste_apt10_aprimoramento_resultados"
 
     # 2. Cria a pasta com o identificador + data/hora
     pasta_teste = preparar_pasta(identificador_teste)
@@ -195,7 +195,7 @@ def main():
         return
 
     with open(results_file, 'w') as out:
-        out.write("Instancia | Area Maxima | Tempo (s)\n")
+        out.write("Instancia | LxA | Area Maxima | Tempo (s)\n")
         
         for filename in os.listdir(folder_path):
             if filename.endswith(".txt"):
@@ -224,7 +224,7 @@ def main():
                 plot_solution(inst.W, inst.H, final_placement, inst.name, best_area, caminho_img)
                 print(f"  [IMG] Gráfico salvo como 'layout_{caminho_img}.png'")
 
-                out.write(f"{inst.name} | {best_area} | {duracao:.4f}\n")
+                out.write(f"{inst.name} | {inst.W}x{inst.H} | {best_area} | {duracao:.4f}\n")
 
 if __name__ == "__main__":
     main()

@@ -1,0 +1,1 @@
+Instancia | Area Maxima | Tempo (s)

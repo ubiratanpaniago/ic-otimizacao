@@ -1,0 +1,2 @@
+Instancia | Area Maxima | Tempo (s)
+apt10.txt | 6159846 | 28.0464
