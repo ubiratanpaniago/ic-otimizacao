@@ -178,7 +178,7 @@ def load_instance(filepath):
 # --- Execução Principal ---
 def main():
     # 1. Defina um identificador para essa rodada (ex: 'teste_T1000_A90')
-    identificador_teste = "teste_apt10_aprimoramento_resultados"
+    identificador_teste = "teste_cabeçalho"
 
     # 2. Cria a pasta com o identificador + data/hora
     pasta_teste = preparar_pasta(identificador_teste)
@@ -193,9 +193,28 @@ def main():
     if not os.path.exists(folder_path):
         print(f"Erro: Pasta {folder_path} não encontrada.")
         return
+    
+    # Definindo largura de cada coluna (ajustar caso necessario)
+    w_nome = 10
+    w_dim = 15
+    w_itens = 12
+    w_area = 15
+    w_tempo = 10
 
     with open(results_file, 'w') as out:
-        out.write("Instancia | LxA | Area Maxima | Tempo (s)\n")
+        # Cabeçalho do resultado
+        header = (
+            f"{'Instancia':<{w_nome}} | "
+            f"{'Dimensoes':<{w_dim}} | "
+            f"{'Itens (E/T)':<{w_itens}} | "
+            f"{'Area Maxima':<{w_area}} | "
+            f"{'Tempo (s)':<{w_tempo}}\n"
+        )
+
+        separador = "-" * len(header) + "\n"
+
+        out.write(header)
+        out.write(separador)
         
         for filename in os.listdir(folder_path):
             if filename.endswith(".txt"):
@@ -207,9 +226,17 @@ def main():
                 
                 # Gera o resultado final com a melhor ordem encontrada
                 _, final_placement, _ = bottom_left_placement(best_order, inst.W, inst.H)
+
+                # Calcula a quantidade de itens empacotados
+                qtd_empacotados = len(final_placement)
+                qtd_total = len(inst.items)
                 
                 end_time = time.time()
                 duracao = end_time - start_time
+
+                # Preparando strings complexas
+                dimensoes = f"{inst.W}x{inst.H}"
+                status_itens = f"{len(final_placement)}/{len(inst.items)}"
 
                 # --- Verificação/Depuração ---
                 print(f"  [OK] Finalizado. Área: {best_area} em {duracao:.2f}s")
@@ -224,7 +251,16 @@ def main():
                 plot_solution(inst.W, inst.H, final_placement, inst.name, best_area, caminho_img)
                 print(f"  [IMG] Gráfico salvo como 'layout_{caminho_img}.png'")
 
-                out.write(f"{inst.name} | {inst.W}x{inst.H} | {best_area} | {duracao:.4f}\n")
+                # Printa o resultado de cada instancia
+                linha = (
+                f"{inst.name:<{w_nome}} | "
+                f"{dimensoes:<{w_dim}} | "
+                f"{status_itens:<{w_itens}} | "
+                f"{best_area:<{w_area}} | "
+                f"{duracao:<{w_tempo}}\n" 
+                )
+
+                out.write(linha)
 
 if __name__ == "__main__":
     main()

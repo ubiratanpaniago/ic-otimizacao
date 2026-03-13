@@ -1,0 +1,2 @@
+Instancia | LxA | Número de itens | Area Maxima | Tempo (s)
+cgcut1.txt | 15x10 | 7 de 7 | 98 | 1.4874
