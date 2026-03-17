@@ -8,11 +8,19 @@ from datetime import datetime
 
 # --- Estrutura de Dados ---
 class Item:
-    def __init__(self, id, w, h):
+    def __init__(self, id, w, h, v):
         self.id = id
         self.w = w
         self.h = h
-        self.area = w * h
+
+        self.area = self.w * self.h
+
+        if v == 0:
+            self.v = self.area
+        else: 
+            self.v = v
+
+        # self.area = w * h
 
 class Instance:
     def __init__(self, name, container_w, container_h, items):
@@ -62,6 +70,7 @@ def preparar_pasta(nome_teste):
 def bottom_left_placement(permutation, container_w, container_h):
     placed_items = []
     total_area = 0
+    total_valor = 0
     
     for item in permutation:
         candidates = [(0, 0)]
@@ -82,8 +91,11 @@ def bottom_left_placement(permutation, container_w, container_h):
                         break
                 
                 if not overlap:
-                    placed_items.append({'id': item.id, 'x': cx, 'y': cy, 'w': item.w, 'h': item.h})
+                    placed_items.append({'id': item.id, 'x': cx, 'y': cy, 'w': item.w, 'h': item.h, 'v': item.v})
+
                     total_area += item.area
+                    total_valor += item.v
+
                     placed = True
                     break
     
@@ -94,7 +106,7 @@ def bottom_left_placement(permutation, container_w, container_h):
     # Adicionamos a área total (que é o peso principal) 
     # E subtraímos um valor BEM PEQUENO da dispersão para servir apenas de desempate
     # Multiplicamos por 0.0001 para garantir que a área sempre seja mais importante que a compactação
-    score_avaliacao = total_area - (dispersao * 0.0001)
+    score_avaliacao = total_valor - (dispersao * 0.0001)
 
     return score_avaliacao, placed_items, total_area
 
@@ -152,6 +164,7 @@ def recozimento_simulado(instance, t0=1000, alpha=0.95, iter_max=300):
                 if current_eval > best_eval:
                     best_eval = current_eval
                     best_order = list(current_order)
+                    best_area = neighbor_area 
         
         if step % 5 == 0: # Printa a cada 5 reduções de temperatura
             print(f"    Passo {step} | Temp: {t:.2f} | Melhor Área: {best_eval}")
@@ -159,7 +172,7 @@ def recozimento_simulado(instance, t0=1000, alpha=0.95, iter_max=300):
         t *= alpha
         step += 1
         
-    return best_area, best_order
+    return best_eval, best_order
 
 # --- Leitura ---
 def load_instance(filepath):
@@ -171,19 +184,22 @@ def load_instance(filepath):
         items = []
         for i in range(2, 2 + num_items):
             parts = lines[i].split()
-            w, h = int(parts[0]), int(parts[1])
-            items.append(Item(i-2, w, h))
+            w = int(parts[0])
+            h = int(parts[1])
+            v = int(parts[2])
+            # w, h = int(parts[0]), int(parts[1])
+            items.append(Item(i-2, w, h, v))
     return Instance(os.path.basename(filepath), cont_w, cont_h, items)
 
 # --- Execução Principal ---
 def main():
     # 1. Defina um identificador para essa rodada (ex: 'teste_T1000_A90')
-    identificador_teste = "teste_cabeçalho"
+    identificador_teste = "BL+RS+3operadores2-0"
 
     # 2. Cria a pasta com o identificador + data/hora
     pasta_teste = preparar_pasta(identificador_teste)
 
-    folder_path = './data/instancia teste 3.0' 
+    folder_path = './data/ins teste 4.0' 
     results_file = os.path.join(pasta_teste, 'resulttesteinst.txt')
 
     # Define e cria subpasta de imagens
