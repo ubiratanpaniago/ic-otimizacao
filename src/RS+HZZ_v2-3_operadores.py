@@ -67,7 +67,7 @@ def preparar_pasta(nome_teste):
     return caminho_completo
 
 # --- Bottom-Left (BL) ---
-def bottom_left_placement(permutation, container_w, container_h):
+def horizontal_zig_zag_placement(permutation, container_w, container_h):
     placed_items = []
     total_area = 0
     total_valor = 0
@@ -78,7 +78,7 @@ def bottom_left_placement(permutation, container_w, container_h):
             candidates.append((p['x'] + p['w'], p['y']))
             candidates.append((p['x'], p['y'] + p['h']))
         
-        candidates.sort(key=lambda c: (c[1], c[0]))
+        candidates.sort(key=lambda c: (c[1], c[0] if int(c[1]) % 2 == 0 else -c[0]))
         
         placed = False
         for cx, cy in candidates:
@@ -115,7 +115,7 @@ def recozimento_simulado(instance, t0=1000, alpha=0.95, iter_max=300):
     current_order = list(instance.items)
     # random.shuffle(current_order)
     current_order.sort(key=lambda x: x.area, reverse=True)
-    current_eval, _, current_area = bottom_left_placement(current_order, instance.W, instance.H)
+    current_eval, _, current_area = horizontal_zig_zag_placement(current_order, instance.W, instance.H)
     
     best_order = list(current_order)
     best_eval = current_eval
@@ -152,7 +152,7 @@ def recozimento_simulado(instance, t0=1000, alpha=0.95, iter_max=300):
                 neighbor.insert(idx_destino, item_removido)
             
             # Avalia o novo vizinho
-            neighbor_eval, _, neighbor_area = bottom_left_placement(neighbor, instance.W, instance.H)
+            neighbor_eval, _, neighbor_area = horizontal_zig_zag_placement(neighbor, instance.W, instance.H)
             
             delta = neighbor_eval - current_eval
             
@@ -194,13 +194,13 @@ def load_instance(filepath):
 # --- Execução Principal ---
 def main():
     # 1. Defina um identificador para essa rodada (ex: 'teste_T1000_A90')
-    identificador_teste = "BL+RS+3operadores2-02503"
+    identificador_teste = "BL+HZZ+3operadores"
 
     # 2. Cria a pasta com o identificador + data/hora
     pasta_teste = preparar_pasta(identificador_teste)
 
     folder_path = './data/ins teste 4.0' 
-    results_file = os.path.join(pasta_teste, 'resulttesteinst.txt')
+    results_file = os.path.join(pasta_teste, 'results01HZZ.txt')
 
     # Define e cria subpasta de imagens
     pasta_imagens = os.path.join(pasta_teste, 'imagens')
@@ -241,7 +241,7 @@ def main():
                 best_area, best_order = recozimento_simulado(inst)
                 
                 # Gera o resultado final com a melhor ordem encontrada
-                _, final_placement, _ = bottom_left_placement(best_order, inst.W, inst.H)
+                _, final_placement, _ = horizontal_zig_zag_placement(best_order, inst.W, inst.H)
 
                 # Calcula a quantidade de itens empacotados
                 qtd_empacotados = len(final_placement)

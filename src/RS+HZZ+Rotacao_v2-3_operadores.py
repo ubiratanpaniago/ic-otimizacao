@@ -67,7 +67,7 @@ def preparar_pasta(nome_teste):
     return caminho_completo
 
 # --- Bottom-Left (BL) ---
-def bottom_left_placement(permutation, container_w, container_h):
+def horizontal_zig_zag_placement(permutation, container_w, container_h):
     placed_items = []
     total_area = 0
     total_valor = 0
@@ -78,34 +78,53 @@ def bottom_left_placement(permutation, container_w, container_h):
             candidates.append((p['x'] + p['w'], p['y']))
             candidates.append((p['x'], p['y'] + p['h']))
         
-        candidates.sort(key=lambda c: (c[1], c[0]))
+        candidates.sort(key=lambda c: (c[1], c[0] if int(c[1]) % 2 == 0 else -c[0]))
         
         placed = False
         for cx, cy in candidates:
-            if cx + item.w <= container_w and cy + item.h <= container_h:
-                overlap = False
-                for p in placed_items:
-                    if not (cx + item.w <= p['x'] or cx >= p['x'] + p['w'] or
-                            cy + item.h <= p['y'] or cy >= p['y'] + p['h']):
-                        overlap = True
-                        break
+
+            # Define as orientações possíveis: (largura, altura, estado_de_rotacao)
+            # Usamos list(set(...)) para não testar a mesma coisa duas vezes se w == h
+            orientacoes = list({
+                (item.w, item.h, False), # Original
+                (item.h, item.w, True)   # Rotacionada 90 graus
+            })
+            
+            # Testa cada orientação naquela coordenada (cx, cy)
+            for current_w, current_h, is_rotated in orientacoes:
                 
-                if not overlap:
-                    placed_items.append({'id': item.id, 'x': cx, 'y': cy, 'w': item.w, 'h': item.h, 'v': item.v})
-
-                    total_area += item.area
-                    total_valor += item.v
-
-                    placed = True
-                    break
+                # Verifica se cabe dentro dos limites do contêiner
+                if cx + current_w <= container_w and cy + current_h <= container_h:
+                    overlap = False
+                    
+                    # Verifica sobreposição com as peças já colocadas
+                    for p in placed_items:
+                        if not (cx + current_w <= p['x'] or cx >= p['x'] + p['w'] or
+                                cy + current_h <= p['y'] or cy >= p['y'] + p['h']):
+                            overlap = True
+                            break
+                    
+                    # Se não sobrepôs, a peça foi posicionada com sucesso!
+                    if not overlap:
+                        placed_items.append({
+                            'id': item.id, 
+                            'x': cx, 
+                            'y': cy, 
+                            'w': current_w,  # Largura que efetivamente coube
+                            'h': current_h,  # Altura que efetivamente coube
+                            'v': item.v,
+                            'rotated': is_rotated # Salva se ela foi girada
+                        })
+                        
+                        total_area += item.area
+                        total_valor += item.v
+                        placed = True
+                        break # Sai do loop de orientações
+            
+            if placed:
+                break # Sai do loop de candidatos, indo para o próximo 'item'
     
-    # Calcula quão longe as peças estão da origem (x=0, y=0)
-    # Somamos a coordenada do topo-direito (x + w, y + h) de cada peça colocada
     dispersao = sum(p['x'] + p['w'] + p['y'] + p['h'] for p in placed_items)
-    
-    # Adicionamos a área total (que é o peso principal) 
-    # E subtraímos um valor BEM PEQUENO da dispersão para servir apenas de desempate
-    # Multiplicamos por 0.0001 para garantir que a área sempre seja mais importante que a compactação
     score_avaliacao = total_valor - (dispersao * 0.0001)
 
     return score_avaliacao, placed_items, total_area
@@ -115,7 +134,7 @@ def recozimento_simulado(instance, t0=1000, alpha=0.95, iter_max=300):
     current_order = list(instance.items)
     # random.shuffle(current_order)
     current_order.sort(key=lambda x: x.area, reverse=True)
-    current_eval, _, current_area = bottom_left_placement(current_order, instance.W, instance.H)
+    current_eval, _, current_area = horizontal_zig_zag_placement(current_order, instance.W, instance.H)
     
     best_order = list(current_order)
     best_eval = current_eval
@@ -152,7 +171,7 @@ def recozimento_simulado(instance, t0=1000, alpha=0.95, iter_max=300):
                 neighbor.insert(idx_destino, item_removido)
             
             # Avalia o novo vizinho
-            neighbor_eval, _, neighbor_area = bottom_left_placement(neighbor, instance.W, instance.H)
+            neighbor_eval, _, neighbor_area = horizontal_zig_zag_placement(neighbor, instance.W, instance.H)
             
             delta = neighbor_eval - current_eval
             
@@ -194,13 +213,13 @@ def load_instance(filepath):
 # --- Execução Principal ---
 def main():
     # 1. Defina um identificador para essa rodada (ex: 'teste_T1000_A90')
-    identificador_teste = "BL+RS+3operadores2-02503"
+    identificador_teste = "BL+HZZ+rotacao+3operadores"
 
     # 2. Cria a pasta com o identificador + data/hora
     pasta_teste = preparar_pasta(identificador_teste)
 
     folder_path = './data/ins teste 4.0' 
-    results_file = os.path.join(pasta_teste, 'resulttesteinst.txt')
+    results_file = os.path.join(pasta_teste, 'results01HZZ.txt')
 
     # Define e cria subpasta de imagens
     pasta_imagens = os.path.join(pasta_teste, 'imagens')
@@ -241,7 +260,7 @@ def main():
                 best_area, best_order = recozimento_simulado(inst)
                 
                 # Gera o resultado final com a melhor ordem encontrada
-                _, final_placement, _ = bottom_left_placement(best_order, inst.W, inst.H)
+                _, final_placement, _ = horizontal_zig_zag_placement(best_order, inst.W, inst.H)
 
                 # Calcula a quantidade de itens empacotados
                 qtd_empacotados = len(final_placement)
