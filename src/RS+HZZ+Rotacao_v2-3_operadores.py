@@ -113,7 +113,7 @@ def horizontal_zig_zag_placement(permutation, container_w, container_h):
                             'w': current_w,  # Largura que efetivamente coube
                             'h': current_h,  # Altura que efetivamente coube
                             'v': item.v,
-                            'rotated': is_rotated # Salva se ela foi girada
+                            'rotated': is_rotated
                         })
                         
                         total_area += item.area
@@ -122,7 +122,7 @@ def horizontal_zig_zag_placement(permutation, container_w, container_h):
                         break # Sai do loop de orientações
             
             if placed:
-                break # Sai do loop de candidatos, indo para o próximo 'item'
+                break 
     
     dispersao = sum(p['x'] + p['w'] + p['y'] + p['h'] for p in placed_items)
     score_avaliacao = total_valor - (dispersao * 0.0001)

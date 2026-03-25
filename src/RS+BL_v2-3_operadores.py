@@ -194,7 +194,7 @@ def load_instance(filepath):
 # --- Execução Principal ---
 def main():
     # 1. Defina um identificador para essa rodada (ex: 'teste_T1000_A90')
-    identificador_teste = "BL+RS+3operadores2-02503"
+    identificador_teste = "RS+BL+Rotacao-3operadores2-02503"
 
     # 2. Cria a pasta com o identificador + data/hora
     pasta_teste = preparar_pasta(identificador_teste)
