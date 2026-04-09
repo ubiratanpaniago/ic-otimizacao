@@ -8,26 +8,25 @@ from datetime import datetime
 
 # --- Estrutura de Dados ---
 class Item:
-    def __init__(self, id, w, h, v):
+    def __init__(self, id, w, h, v_input):
         self.id = id
         self.w = w
         self.h = h
 
-        self.area = self.w * self.h
+        self.area = w * h
+        # self.area = self.w * self.h
 
-        if v == 0:
-            self.v = self.area
-        else: 
-            self.v = v
-
-        # self.area = w * h
+        # se v for 0, o valor do objetivo vira área, se não vira o valor real
+        self.v = self.area if v_input == 0 else v_input
 
 class Instance:
-    def __init__(self, name, container_w, container_h, items):
+    def __init__(self, name, container_w, container_h, items, modo_calculo):
         self.name = name
         self.W = container_w
         self.H = container_h
         self.items = items
+        self.area_total_container = container_w * container_h
+        self.modo_calculo = modo_calculo # guarda se é no modo Área ou Valor
 
 # --- Função de Visualização ---
 def plot_solution(container_w, container_h, placed_items, instance_name, area_total, caminho_salvamento):
@@ -69,9 +68,10 @@ def preparar_pasta(nome_teste):
 # --- Bottom-Left (BL) ---
 def horizontal_zig_zag_placement(permutation, container_w, container_h):
     placed_items = []
-    total_area = 0
-    total_valor = 0
-    
+
+    total_area_ocupada = 0 # rastreia o físico
+    total_valor_objeto = 0 # rastreia o valor (objetivo)
+
     for item in permutation:
         candidates = [(0, 0)]
         for p in placed_items:
@@ -93,8 +93,9 @@ def horizontal_zig_zag_placement(permutation, container_w, container_h):
                 if not overlap:
                     placed_items.append({'id': item.id, 'x': cx, 'y': cy, 'w': item.w, 'h': item.h, 'v': item.v})
 
-                    total_area += item.area
-                    total_valor += item.v
+                    total_area_ocupada += item.area # sempre será <= área do container
+                    total_valor_objeto += item.v # pode ser > que o container se o modo for valor
+
 
                     placed = True
                     break
@@ -106,20 +107,23 @@ def horizontal_zig_zag_placement(permutation, container_w, container_h):
     # Adicionamos a área total (que é o peso principal) 
     # E subtraímos um valor BEM PEQUENO da dispersão para servir apenas de desempate
     # Multiplicamos por 0.0001 para garantir que a área sempre seja mais importante que a compactação
-    score_avaliacao = total_valor - (dispersao * 0.0001)
+    score_avaliacao = total_valor_objeto - (dispersao * 0.0001)
 
-    return score_avaliacao, placed_items, total_area
-
+    # retorna 4 valores: score, itens colocados, área fisica e valor 
+    return score_avaliacao, placed_items, total_area_ocupada, total_valor_objeto
 # --- Recozimento Simulado (SA) ---
 def recozimento_simulado(instance, t0=1000, alpha=0.95, iter_max=300):
     current_order = list(instance.items)
     # random.shuffle(current_order)
     current_order.sort(key=lambda x: x.area, reverse=True)
-    current_eval, _, current_area = horizontal_zig_zag_placement(current_order, instance.W, instance.H)
+    current_eval, _, cur_area, cur_val = horizontal_zig_zag_placement(current_order, instance.W, instance.H)
     
     best_order = list(current_order)
     best_eval = current_eval
-    best_area = current_area # Guarda a melhor área
+
+    best_area = cur_area # Guarda a melhor área física
+    best_val = cur_val # guarda o melhor valor bruto
+
     
     t = t0
     step = 0
@@ -152,19 +156,21 @@ def recozimento_simulado(instance, t0=1000, alpha=0.95, iter_max=300):
                 neighbor.insert(idx_destino, item_removido)
             
             # Avalia o novo vizinho
-            neighbor_eval, _, neighbor_area = horizontal_zig_zag_placement(neighbor, instance.W, instance.H)
+            nev, _, narea, nval = horizontal_zig_zag_placement(neighbor, instance.W, instance.H)
             
-            delta = neighbor_eval - current_eval
+            delta = nev - current_eval
             
             # Critério de aceitação do Recozimento Simulado
             if delta > 0 or (t > 0 and random.random() < math.exp(delta / t)):
                 current_order = neighbor
-                current_eval = neighbor_eval
+                current_eval = nev
                 
                 if current_eval > best_eval:
-                    best_eval = current_eval
-                    best_order = list(current_order)
-                    best_area = neighbor_area 
+
+                    best_eval = nev
+                    best_order = list(neighbor)
+                    best_area = narea # <--- Atualiza com a área da melhor solução
+                    best_val = nval   # <--- Atualiza com o valor da melhor solução
         
         if step % 5 == 0: # Printa a cada 5 reduções de temperatura
             print(f"    Passo {step} | Temp: {t:.2f} | Melhor Área: {best_eval}")
@@ -172,7 +178,7 @@ def recozimento_simulado(instance, t0=1000, alpha=0.95, iter_max=300):
         t *= alpha
         step += 1
         
-    return best_eval, best_order
+    return best_eval, best_order, best_area, best_val
 
 # --- Leitura ---
 def load_instance(filepath):
@@ -182,14 +188,21 @@ def load_instance(filepath):
         num_items = int(lines[0].split('#')[0].strip())
         cont_w, cont_h = map(int, lines[1].split('#')[0].strip().split())
         items = []
+        tem_valor_real = False 
+
+        
         for i in range(2, 2 + num_items):
-            parts = lines[i].split()
-            w = int(parts[0])
-            h = int(parts[1])
-            v = int(parts[2])
-            # w, h = int(parts[0]), int(parts[1])
+
+            parts = list(map(int, lines[i].split()))
+            w, h, v = parts[0], parts[1], parts[2]
+            
+            if v > 0: tem_valor_real = True # Se houver qualquer valor > 0, muda o modo
+
             items.append(Item(i-2, w, h, v))
-    return Instance(os.path.basename(filepath), cont_w, cont_h, items)
+
+            
+    modo = "Valor" if tem_valor_real else "Área" # Define o rótulo baseado na detecção
+    return Instance(os.path.basename(filepath), cont_w, cont_h, items, modo)
 
 # --- Execução Principal ---
 def main():
@@ -212,18 +225,22 @@ def main():
     
     # Definindo largura de cada coluna (ajustar caso necessario)
     w_nome = 10
+    w_modo = 12
     w_dim = 15
     w_itens = 12
-    w_area = 15
+    w_obj = 15
+    w_ocup = 20
     w_tempo = 10
 
     with open(results_file, 'w') as out:
         # Cabeçalho do resultado
         header = (
             f"{'Instancia':<{w_nome}} | "
+            f"{'Tipo Valor':<{w_modo}} | "
             f"{'Dimensoes':<{w_dim}} | "
             f"{'Itens (E/T)':<{w_itens}} | "
-            f"{'Area Maxima':<{w_area}} | "
+            f"{'Valor Obj.':<{w_obj}} | "
+            f"{'Ocupação':<{w_ocup}} | "
             f"{'Tempo (s)':<{w_tempo}}\n"
         )
 
@@ -238,10 +255,10 @@ def main():
                 start_time = time.time()
                 
                 inst = load_instance(os.path.join(folder_path, filename))
-                best_area, best_order = recozimento_simulado(inst)
+                best_score, best_order, area_final, valor_final = recozimento_simulado(inst)
                 
                 # Gera o resultado final com a melhor ordem encontrada
-                _, final_placement, _ = horizontal_zig_zag_placement(best_order, inst.W, inst.H)
+                _, final_placement, area_final, valor_final = horizontal_zig_zag_placement(best_order, inst.W, inst.H)
 
                 # Calcula a quantidade de itens empacotados
                 qtd_empacotados = len(final_placement)
@@ -254,8 +271,13 @@ def main():
                 dimensoes = f"{inst.W}x{inst.H}"
                 status_itens = f"{len(final_placement)}/{len(inst.items)}"
 
+                                # Cálculo da string de ocupação: ex "145/150 (96.67%)"
+                ocup_str = f"{area_final}/{inst.area_total_container}"
+                ocup_perc = (area_final / inst.area_total_container) * 100
+                ocup_full = f"{ocup_str} ({ocup_perc:.2f}%)"
+
                 # --- Verificação/Depuração ---
-                print(f"  [OK] Finalizado. Área: {best_area} em {duracao:.2f}s")
+                print(f"  [OK] Finalizado. Área: {valor_final} em {duracao:.2f}s")
                 print(f"  [INFO] Lista de posições gerada pelo Bottom-Left (Top 5):")
                 for p in final_placement[:5]:
                     print(f"    Item {p['id']}: pos({p['x']}, {p['y']}) dim({p['w']}x{p['h']})")
@@ -264,15 +286,17 @@ def main():
                 caminho_img = os.path.join(pasta_imagens, f"layout_{inst.name}.png")
                 
                 # Gera imagem do resultado
-                plot_solution(inst.W, inst.H, final_placement, inst.name, best_area, caminho_img)
+                plot_solution(inst.W, inst.H, final_placement, inst.name, valor_final, caminho_img)
                 print(f"  [IMG] Gráfico salvo como 'layout_{caminho_img}.png'")
 
                 # Printa o resultado de cada instancia
                 linha = (
                 f"{inst.name:<{w_nome}} | "
+                f"{inst.modo_calculo:<{w_modo}} | "
                 f"{dimensoes:<{w_dim}} | "
                 f"{status_itens:<{w_itens}} | "
-                f"{best_area:<{w_area}} | "
+                f"{valor_final:<{w_obj}} | "
+                f"{ocup_full:<{w_ocup}} | "
                 f"{duracao:<{w_tempo}}\n" 
                 )
 
