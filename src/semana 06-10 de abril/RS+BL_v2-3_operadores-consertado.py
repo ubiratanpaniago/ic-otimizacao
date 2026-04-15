@@ -69,7 +69,7 @@ def preparar_pasta(nome_teste):
 def bottom_left_placement(permutation, container_w, container_h):
     placed_items = []
 
-    total_area_ocupada = 0 # rastreia o físico
+    total_area_ocupada = 0 # rastreia a área física
     total_valor_objeto = 0 # rastreia o valor (objetivo)
 
     
@@ -116,7 +116,7 @@ def bottom_left_placement(permutation, container_w, container_h):
 # --- Recozimento Simulado (SA) ---
 def recozimento_simulado(instance, t0=1000, alpha=0.95, iter_max=300):
     current_order = list(instance.items)
-    # random.shuffle(current_order)
+
     current_order.sort(key=lambda x: x.area, reverse=True)
  
     current_eval, _, cur_area, cur_val = bottom_left_placement(current_order, instance.W, instance.H)
@@ -185,7 +185,7 @@ def recozimento_simulado(instance, t0=1000, alpha=0.95, iter_max=300):
 
 # --- Leitura ---
 def load_instance(filepath):
-    # (Mesma lógica do código anterior)
+
     with open(filepath, 'r') as f:
         lines = [line for line in f.readlines() if line.strip() and not line.startswith('#')]
         num_items = int(lines[0].split('#')[0].strip())
@@ -212,13 +212,14 @@ def load_instance(filepath):
 # --- Execução Principal ---
 def main():
     # 1. Defina um identificador para essa rodada (ex: 'teste_T1000_A90')
-    identificador_teste = "RS+BL+Rotacao-3operadores2-02503"
+    identificador_teste = "RS+BL-comparacao_geral"
 
     # 2. Cria a pasta com o identificador + data/hora
     pasta_teste = preparar_pasta(identificador_teste)
 
+    # 3. Defina o caminho onde estão as instancias
     folder_path = './data/ins teste 4.0' 
-    results_file = os.path.join(pasta_teste, 'resulttesteinst.txt')
+    results_file = os.path.join(pasta_teste, 'resultsBl.txt')
 
     # Define e cria subpasta de imagens
     pasta_imagens = os.path.join(pasta_teste, 'imagens')
@@ -229,12 +230,12 @@ def main():
         return
     
     # Definindo largura de cada coluna (ajustar caso necessario)
-    w_nome = 10
-    w_modo = 12
-    w_dim = 15
+    w_nome = 13
+    w_modo = 10
+    w_dim = 14
     w_itens = 12
     w_obj = 15
-    w_ocup = 20
+    w_ocup = 19
     w_tempo = 10
 
     with open(results_file, 'w') as out:

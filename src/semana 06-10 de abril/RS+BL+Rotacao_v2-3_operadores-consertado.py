@@ -68,7 +68,7 @@ def preparar_pasta(nome_teste):
 # --- Bottom-Left (BL) ---
 def bottom_left_placement(permutation, container_w, container_h):
     placed_items = []
-    total_area_ocupada = 0 # rastreia o físico
+    total_area_ocupada = 0 # rastreia a área física
     total_valor_objeto = 0 # rastreia o valor (objetivo)
     
     for item in permutation:
@@ -122,7 +122,7 @@ def bottom_left_placement(permutation, container_w, container_h):
             if placed:
                 break # Quebra o loop de candidatos e vai para o próximo item
     
-    # Cálculo do score e dispersão (mantido igual ao seu original)
+    # Cálculo do score e dispersão
     dispersao = sum(p['x'] + p['w'] + p['y'] + p['h'] for p in placed_items)
     score_avaliacao = total_valor_objeto - (dispersao * 0.0001)
 
@@ -218,13 +218,14 @@ def load_instance(filepath):
 # --- Execução Principal ---
 def main():
     # 1. Defina um identificador para essa rodada (ex: 'teste_T1000_A90')
-    identificador_teste = "RS+BL+Rotacao-3operadores2-area e valor diferentes"
+    identificador_teste = "RS+BL+Rotacao-comparacao_geral"
 
     # 2. Cria a pasta com o identificador + data/hora
     pasta_teste = preparar_pasta(identificador_teste)
 
+    # 3. Defina o caminho onde estão as instancias
     folder_path = './data/ins teste 4.0' 
-    results_file = os.path.join(pasta_teste, 'resulttesteinst.txt')
+    results_file = os.path.join(pasta_teste, 'resultsBlRot.txt')
 
     # Define e cria subpasta de imagens
     pasta_imagens = os.path.join(pasta_teste, 'imagens')
@@ -235,12 +236,12 @@ def main():
         return
     
     # Definindo largura de cada coluna (ajustar caso necessario)
-    w_nome = 10
-    w_modo = 12
-    w_dim = 15
+    w_nome = 13
+    w_modo = 10
+    w_dim = 14
     w_itens = 12
     w_obj = 15
-    w_ocup = 20
+    w_ocup = 19
     w_tempo = 10
 
     with open(results_file, 'w') as out:

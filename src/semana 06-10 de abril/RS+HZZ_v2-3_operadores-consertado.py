@@ -65,11 +65,11 @@ def preparar_pasta(nome_teste):
     
     return caminho_completo
 
-# --- Bottom-Left (BL) ---
+# --- Horizontal-Zig-Zag (HZZ) ---
 def horizontal_zig_zag_placement(permutation, container_w, container_h):
     placed_items = []
 
-    total_area_ocupada = 0 # rastreia o físico
+    total_area_ocupada = 0 # rastreia a área física
     total_valor_objeto = 0 # rastreia o valor (objetivo)
 
     for item in permutation:
@@ -111,6 +111,7 @@ def horizontal_zig_zag_placement(permutation, container_w, container_h):
 
     # retorna 4 valores: score, itens colocados, área fisica e valor 
     return score_avaliacao, placed_items, total_area_ocupada, total_valor_objeto
+
 # --- Recozimento Simulado (SA) ---
 def recozimento_simulado(instance, t0=1000, alpha=0.95, iter_max=300):
     current_order = list(instance.items)
@@ -182,7 +183,7 @@ def recozimento_simulado(instance, t0=1000, alpha=0.95, iter_max=300):
 
 # --- Leitura ---
 def load_instance(filepath):
-    # (Mesma lógica do código anterior)
+
     with open(filepath, 'r') as f:
         lines = [line for line in f.readlines() if line.strip() and not line.startswith('#')]
         num_items = int(lines[0].split('#')[0].strip())
@@ -207,13 +208,14 @@ def load_instance(filepath):
 # --- Execução Principal ---
 def main():
     # 1. Defina um identificador para essa rodada (ex: 'teste_T1000_A90')
-    identificador_teste = "BL+HZZ+3operadores"
+    identificador_teste = "RS+HZZ-comparacao_geral"
 
     # 2. Cria a pasta com o identificador + data/hora
     pasta_teste = preparar_pasta(identificador_teste)
 
+    # 3. Defina o caminho onde estão as instancias
     folder_path = './data/ins teste 4.0' 
-    results_file = os.path.join(pasta_teste, 'results01HZZ.txt')
+    results_file = os.path.join(pasta_teste, 'resultsHzz.txt')
 
     # Define e cria subpasta de imagens
     pasta_imagens = os.path.join(pasta_teste, 'imagens')
@@ -224,12 +226,12 @@ def main():
         return
     
     # Definindo largura de cada coluna (ajustar caso necessario)
-    w_nome = 10
-    w_modo = 12
-    w_dim = 15
+    w_nome = 13
+    w_modo = 10
+    w_dim = 14
     w_itens = 12
     w_obj = 15
-    w_ocup = 20
+    w_ocup = 19
     w_tempo = 10
 
     with open(results_file, 'w') as out:
