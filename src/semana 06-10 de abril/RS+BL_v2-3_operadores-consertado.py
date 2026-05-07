@@ -183,7 +183,7 @@ def recozimento_simulado(instance, t0=1000, alpha=0.95, iter_max=300):
         
     return best_eval, best_order, best_area, best_val
 
-# --- Leitura ---
+#---  Leitura ---
 def load_instance(filepath):
 
     with open(filepath, 'r') as f:
