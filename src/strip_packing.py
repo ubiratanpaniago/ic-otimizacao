@@ -22,7 +22,7 @@ class Instance:
         self.items = items
 
 # --- Função de Visualização ---
-def plot_solution(container_w, final_l, placed_items, instance_name, caminho_salvamento):
+def plot_solution(container_w, final_l, placed_items, instance_name, caminho_salvamento, taxa_ocupacao):
     fig, ax = plt.subplots(1)
     # X é o comprimento (L) atingido, Y é a largura (W) fixa
     ax.set_xlim(0, final_l)
@@ -39,7 +39,7 @@ def plot_solution(container_w, final_l, placed_items, instance_name, caminho_sal
         rect = patches.Rectangle((p['x'], p['y']), p['l'], p['w'], linewidth=1, edgecolor='white', facecolor=color, alpha=0.7)
         ax.add_patch(rect)
 
-    plt.title(f"Instância: {instance_name}\nLargura Fixa (W): {container_w} | Comprimento Min. (L): {final_l:.2f}")
+    plt.title(f"Instância: {instance_name}\nLargura Fixa (W): {container_w} | Comprimento Min. (L): {final_l:.2f}\nTaxa de Ocupação: {taxa_ocupacao:.2f}%")
     plt.savefig(caminho_salvamento)
     plt.close() 
 
@@ -171,21 +171,26 @@ def main():
             filepath = os.path.join(folder_path, filename)
             inst = load_instance(filepath)
             
+            area_total_itens = sum(item.area for item in inst.items)
+
             start_time = time.time()
             best_order, final_l = recozimento_simulado(inst)
             _, final_placement, _ = bottom_left_placement(best_order, inst.w)
             duracao = time.time() - start_time
 
-            print(f"    [OK] L final: {final_l:.2f} | Tempo: {duracao:.2f}s")
+            area_container = inst.w * final_l
+            taxa_ocupacao = (area_total_itens / area_container) * 100 if area_container > 0 else 0
+
+            print(f"    [OK] L final: {final_l:.2f} | Ocupação: {taxa_ocupacao:.2f}% | Tempo: {duracao:.2f}s")
 
             # Salva a imagem
             caminho_img = os.path.join(pasta_imagens, f"layout_{inst.name}.png")
-            plot_solution(inst.w, final_l, final_placement, inst.name, caminho_img)
+            plot_solution(inst.w, final_l, final_placement, inst.name, caminho_img, taxa_ocupacao)
             print(f"    [IMG] Salva em: {caminho_img}")
             
             # (Opcional) Salvar um log de texto dentro da pasta
             with open(os.path.join(pasta_raiz, "resultados.txt"), "a") as log:
-                log.write(f"{filename}: L={final_l:.2f}, Tempo={duracao:.2f}s\n")
+                log.write(f"{filename}: L={final_l:.2f}, Taxa de Ocupação={taxa_ocupacao:.2f}, Tempo={duracao:.2f}s\n")
 
         except Exception as e:
             print(f"    [ERRO] Falha ao processar {filename}: {e}")

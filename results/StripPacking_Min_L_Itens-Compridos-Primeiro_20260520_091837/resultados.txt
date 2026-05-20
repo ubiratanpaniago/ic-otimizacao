@@ -1,0 +1,17 @@
+cgcut1.txt: L=7.00, Tempo=1.75s
+cgcut2.txt: L=35.00, Tempo=2.95s
+ed1.txt: L=6.00, Tempo=0.68s
+ed2.txt: L=26.00, Tempo=14.98s
+ed3.txt: L=12.00, Tempo=0.64s
+ngcut1.txt: L=9.00, Tempo=0.85s
+ngcut10.txt: L=30.00, Tempo=0.87s
+ngcut11.txt: L=23.00, Tempo=1.41s
+ngcut12.txt: L=31.00, Tempo=3.14s
+ngcut2.txt: L=10.00, Tempo=1.52s
+ngcut3.txt: L=10.00, Tempo=2.84s
+ngcut4.txt: L=8.00, Tempo=0.86s
+ngcut5.txt: L=10.00, Tempo=1.56s
+ngcut6.txt: L=9.00, Tempo=3.08s
+ngcut7.txt: L=9.00, Tempo=0.88s
+ngcut8.txt: L=10.00, Tempo=1.47s
+ngcut9.txt: L=23.00, Tempo=2.69s
