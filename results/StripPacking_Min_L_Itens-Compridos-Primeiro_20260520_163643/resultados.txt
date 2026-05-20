@@ -1,0 +1,17 @@
+cgcut1.txt: L=7.00, Taxa de Ocupação=93.33, Tempo=2.14s
+cgcut2.txt: L=35.00, Taxa de Ocupação=156.29, Tempo=3.23s
+ed1.txt: L=6.00, Taxa de Ocupação=70.37, Tempo=0.74s
+ed2.txt: L=26.00, Taxa de Ocupação=139.05, Tempo=16.18s
+ed3.txt: L=12.00, Taxa de Ocupação=100.56, Tempo=0.68s
+ngcut1.txt: L=9.00, Taxa de Ocupação=105.56, Tempo=0.92s
+ngcut10.txt: L=30.00, Taxa de Ocupação=76.67, Tempo=0.95s
+ngcut11.txt: L=23.00, Taxa de Ocupação=108.55, Tempo=1.47s
+ngcut12.txt: L=31.00, Taxa de Ocupação=120.43, Tempo=3.35s
+ngcut2.txt: L=10.00, Taxa de Ocupação=107.00, Tempo=1.56s
+ngcut3.txt: L=10.00, Taxa de Ocupação=136.00, Tempo=2.95s
+ngcut4.txt: L=8.00, Taxa de Ocupação=90.00, Tempo=0.91s
+ngcut5.txt: L=10.00, Taxa de Ocupação=120.67, Tempo=1.48s
+ngcut6.txt: L=9.00, Taxa de Ocupação=137.78, Tempo=3.40s
+ngcut7.txt: L=9.00, Taxa de Ocupação=85.56, Tempo=0.90s
+ngcut8.txt: L=10.00, Taxa de Ocupação=156.00, Tempo=1.53s
+ngcut9.txt: L=23.00, Taxa de Ocupação=120.87, Tempo=2.88s
