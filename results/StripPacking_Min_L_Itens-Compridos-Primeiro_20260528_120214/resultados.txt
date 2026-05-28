@@ -1,0 +1,17 @@
+cgcut1.txt: L=7.00, Taxa de Ocupação=93.33%, Itens Empacotados=6/7, Tempo=1.85s
+cgcut2.txt: L=35.00, Taxa de Ocupação=156.29%, Itens Empacotados=4/10, Tempo=3.75s
+ed1.txt: L=6.00, Taxa de Ocupação=70.37%, Itens Empacotados=4/4, Tempo=1.02s
+ed2.txt: L=26.00, Taxa de Ocupação=139.05%, Itens Empacotados=15/20, Tempo=15.73s
+ed3.txt: L=12.00, Taxa de Ocupação=100.56%, Itens Empacotados=3/4, Tempo=0.69s
+ngcut1.txt: L=9.00, Taxa de Ocupação=105.56%, Itens Empacotados=3/5, Tempo=0.88s
+ngcut10.txt: L=30.00, Taxa de Ocupação=76.67%, Itens Empacotados=3/5, Tempo=0.89s
+ngcut11.txt: L=23.00, Taxa de Ocupação=108.55%, Itens Empacotados=4/7, Tempo=1.49s
+ngcut12.txt: L=31.00, Taxa de Ocupação=120.43%, Itens Empacotados=6/10, Tempo=3.17s
+ngcut2.txt: L=10.00, Taxa de Ocupação=107.00%, Itens Empacotados=5/7, Tempo=1.58s
+ngcut3.txt: L=10.00, Taxa de Ocupação=136.00%, Itens Empacotados=6/10, Tempo=2.87s
+ngcut4.txt: L=8.00, Taxa de Ocupação=90.00%, Itens Empacotados=5/5, Tempo=0.90s
+ngcut5.txt: L=10.00, Taxa de Ocupação=120.67%, Itens Empacotados=5/7, Tempo=1.50s
+ngcut6.txt: L=9.00, Taxa de Ocupação=137.78%, Itens Empacotados=7/10, Tempo=3.13s
+ngcut7.txt: L=9.00, Taxa de Ocupação=85.56%, Itens Empacotados=3/5, Tempo=0.89s
+ngcut8.txt: L=10.00, Taxa de Ocupação=156.00%, Itens Empacotados=4/7, Tempo=1.52s
+ngcut9.txt: L=23.00, Taxa de Ocupação=120.87%, Itens Empacotados=7/10, Tempo=2.87s

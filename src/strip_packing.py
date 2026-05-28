@@ -22,7 +22,7 @@ class Instance:
         self.items = items
 
 # --- Função de Visualização ---
-def plot_solution(container_w, final_l, placed_items, instance_name, caminho_salvamento, taxa_ocupacao):
+def plot_solution(container_w, final_l, placed_items, instance_name, caminho_salvamento, taxa_ocupacao, total_items):
     fig, ax = plt.subplots(1)
     # X é o comprimento (L) atingido, Y é a largura (W) fixa
     ax.set_xlim(0, final_l)
@@ -39,8 +39,12 @@ def plot_solution(container_w, final_l, placed_items, instance_name, caminho_sal
         rect = patches.Rectangle((p['x'], p['y']), p['l'], p['w'], linewidth=1, edgecolor='white', facecolor=color, alpha=0.7)
         ax.add_patch(rect)
 
-    plt.title(f"Instância: {instance_name}\nLargura Fixa (W): {container_w} | Comprimento Min. (L): {final_l:.2f}\nTaxa de Ocupação: {taxa_ocupacao:.2f}%")
-    plt.savefig(caminho_salvamento)
+    qtd_empacotados = len(placed_items)
+
+    plt.title(f"Instância: {instance_name}\n"
+              f"Largura Fixa (W): {container_w} | Comprimento Min. (L): {final_l:.2f}\n"
+              f"Taxa de Ocupação: {taxa_ocupacao:.2f}% | Itens Empacotados: {qtd_empacotados}/{total_items}")
+    plt.savefig(caminho_salvamento, bbox_inches='tight')
     plt.close() 
 
 # --- Bottom-Left (BL) - Minimizar L ---
@@ -183,14 +187,18 @@ def main():
 
             print(f"    [OK] L final: {final_l:.2f} | Ocupação: {taxa_ocupacao:.2f}% | Tempo: {duracao:.2f}s")
 
+            total_itens = len(inst.items)
+            qtd_empacotados = len(final_placement)
+
             # Salva a imagem
             caminho_img = os.path.join(pasta_imagens, f"layout_{inst.name}.png")
-            plot_solution(inst.w, final_l, final_placement, inst.name, caminho_img, taxa_ocupacao)
+            plot_solution(inst.w, final_l, final_placement, inst.name, caminho_img, taxa_ocupacao, total_itens)
             print(f"    [IMG] Salva em: {caminho_img}")
             
             # (Opcional) Salvar um log de texto dentro da pasta
             with open(os.path.join(pasta_raiz, "resultados.txt"), "a") as log:
-                log.write(f"{filename}: L={final_l:.2f}, Taxa de Ocupação={taxa_ocupacao:.2f}, Tempo={duracao:.2f}s\n")
+                log.write(f"{filename}: L={final_l:.2f}, Taxa de Ocupação={taxa_ocupacao:.2f}%, "
+                          f"Itens Empacotados={qtd_empacotados}/{total_itens}, Tempo={duracao:.2f}s\n")
 
         except Exception as e:
             print(f"    [ERRO] Falha ao processar {filename}: {e}")
