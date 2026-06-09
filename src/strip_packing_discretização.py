@@ -45,27 +45,62 @@ def plot_solution(container_w, final_l, placed_items, instance_name, caminho_sal
               f"Largura Fixa (W): {container_w} | Comprimento Min. (L): {final_l:.2f}\n"
               f"Taxa de Ocupação: {taxa_ocupacao:.2f}% | Itens Empacotados: {qtd_empacotados}/{total_items}")
     plt.savefig(caminho_salvamento, bbox_inches='tight')
-    plt.close() 
+    plt.close()
+
+# --- Geração de pontos baseado na instância ---
+def gerar_pontos_normais(valores_itens, limite_maximo):
+    """
+    Gera todas as combinações lineares inteiras possíveis dos tamanhos dos itens
+    que sejam menores ou iguais ao limite máximo (Teoria de Normal Patterns).
+    """
+    pontos = {0}
+    # Força uma ordenação para construir as combinações de forma crescente
+    for val in sorted(valores_itens):
+        novos_pontos = set()
+        for p in pontos:
+            k = 1
+            while p + k * val <= limite_maximo:
+                novos_pontos.add(p + k * val)
+                k += 1
+        pontos.update(novos_pontos)
+    return sorted(list(pontos))
 
 # --- Bottom-Left (BL) - Minimizar L ---
 def bottom_left_placement(permutation, container_w):
     placed_items = []
-    max_l_reached = 0 # Minimizar esse cara
+    max_l_reached = 0
+    
+    # 1. Extrai os tamanhos únicos das peças para construir os padrões normais
+    comprimentos = list({item.l for item in permutation})
+    larguras = list({item.w for item in permutation})
+    
+    # Estimativa superior grosseira para o comprimento máximo tolerado nesta chamada
+    # (Soma de todos os itens garante que tudo caiba, atuando como o limite "infinito")
+    limite_l_estimado = sum(item.l for item in permutation)
+    
+    # 2. Pré-calcula os eixos discretos com base no capítulo 3.1 da dissertação
+    # No eixo Y, o limite estrito é a largura do container (W)
+    eixo_y_discreto = gerar_pontos_normais(larguras, container_w)
+    
+    # No eixo X, geramos os pontos normais dinamicamente. Para não gerar uma lista
+    # gigante inicial, começamos com os pontos básicos e podemos filtrar no loop.
+    eixo_x_discreto = gerar_pontos_normais(comprimentos, limite_l_estimado)
 
+    # 3. Monta a grade de pontos candidatos canônicos (X, Y)
+    # Ordenados estritamente por X (mais à esquerda) e depois por Y (mais abaixo)
+    candidates = []
+    for cx in eixo_x_discreto:
+        for cy in eixo_y_discreto:
+            candidates.append((cx, cy))
+
+    # 4. Loop de posicionamento clássico sobre a grade discreta
     for item in permutation:
-        # Pontos candidatos (X, Y) -> (Comprimento, Largura)
-        candidates = [(0, 0)]
-        for p in placed_items:
-            candidates.append((p['x'] + p['l'], p['y']))
-            candidates.append((p['x'], p['y'] + p['w']))
-        
-        # Ordena para priorizar o "mais à esquerda" (X menor) e depois "mais abaixo" (Y menor)
-        candidates.sort(key=lambda c: (c[0], c[1]))
-        
+        placed = False
         for cx, cy in candidates:
-            # Verifica se não ultrapassa a LARGURA fixa no eixo Y
+            # Garante que o item não estoura o teto do container
             if cy + item.w <= container_w:
                 overlap = False
+                # Teste se a posição na grade colide com alguém já alocado
                 for p in placed_items:
                     if not (cx + item.l <= p['x'] or cx >= p['x'] + p['l'] or
                             cy + item.w <= p['y'] or cy >= p['y'] + p['w']):
@@ -74,12 +109,17 @@ def bottom_left_placement(permutation, container_w):
                 
                 if not overlap:
                     placed_items.append({'id': item.id, 'x': cx, 'y': cy, 'w': item.w, 'l': item.l})
-                    # Atualiza o comprimento máximo (L) alcançado no eixo X
                     if cx + item.l > max_l_reached:
                         max_l_reached = cx + item.l
-                    break
-    
-    # Score negativo pois o SA busca o maior valor (minimizar L = maximizar -L)
+                    placed = True
+                    break # Peça posicionada com sucesso, vai para a próxima
+        
+        # Fallback de segurança (Garantia de empacotamento se a grade falhar)
+        if not placed:
+            cx, cy = max_l_reached, 0
+            placed_items.append({'id': item.id, 'x': cx, 'y': cy, 'w': item.w, 'l': item.l})
+            max_l_reached += item.l
+
     return -max_l_reached, placed_items, max_l_reached
 
 # --- Recozimento Simulado (SA) ---
@@ -142,7 +182,7 @@ def load_instance(filepath):
 # --- Execução Principal ---
 def main():
     # 1. Identificador e Pastas
-    identificador = "StripPacking"
+    identificador = "StripPackingDiscretização"
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     
     # Garante que a pasta 'results' existe antes de criar a subpasta
@@ -195,7 +235,7 @@ def main():
             plot_solution(inst.w, final_l, final_placement, inst.name, caminho_img, taxa_ocupacao, total_itens)
             print(f"    [IMG] Salva em: {caminho_img}")
             
-            # (Opcional) Salvar um log de texto dentro da pasta
+            # Salvar um log de texto dentro da pasta
             with open(os.path.join(pasta_raiz, "resultados.txt"), "a") as log:
                 log.write(f"{filename}: L={final_l:.2f}, Taxa de Ocupação={taxa_ocupacao:.2f}%, "
                           f"Itens Empacotados={qtd_empacotados}/{total_itens}, Tempo={duracao:.2f}s\n")
