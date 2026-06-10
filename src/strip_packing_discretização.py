@@ -75,15 +75,15 @@ def bottom_left_placement(permutation, container_w):
     larguras = list({item.w for item in permutation})
     
     # Estimativa superior grosseira para o comprimento máximo tolerado nesta chamada
-    # (Soma de todos os itens garante que tudo caiba, atuando como o limite "infinito")
+    # (Soma de todos os itens garante que tudo caiba, atuando como um limite "infinito")
     limite_l_estimado = sum(item.l for item in permutation)
     
-    # 2. Pré-calcula os eixos discretos com base no capítulo 3.1 da dissertação
+    # 2. Pré-calcula os eixos discretos 
     # No eixo Y, o limite estrito é a largura do container (W)
     eixo_y_discreto = gerar_pontos_normais(larguras, container_w)
     
-    # No eixo X, geramos os pontos normais dinamicamente. Para não gerar uma lista
-    # gigante inicial, começamos com os pontos básicos e podemos filtrar no loop.
+    # No eixo X, geramos os pontos normais dinamicamente.
+    # Começamos com pontos básicos para não gerar uma lista gigante no inicio
     eixo_x_discreto = gerar_pontos_normais(comprimentos, limite_l_estimado)
 
     # 3. Monta a grade de pontos candidatos canônicos (X, Y)
