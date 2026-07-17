@@ -1,0 +1,28 @@
+# scale of items and bin: 1:
+1
+# number of types of items
+10
+# item type 1: ID, demand, flip, number rotations, rotations.
+1 1 0 2 0 180 
+# item type 2: ID, demand, flip, number rotations, rotations.
+2 1 0 2 0 180 
+# item type 3: ID, demand, flip, number rotations, rotations.
+3 1 0 2 0 180 
+# item type 4: ID, demand, flip, number rotations, rotations.
+4 1 0 2 0 180 
+# item type 5: ID, demand, flip, number rotations, rotations.
+5 1 0 2 0 180 
+# item type 6: ID, demand, flip, number rotations, rotations.
+6 1 0 2 0 180 
+# item type 7: ID, demand, flip, number rotations, rotations.
+7 1 0 2 0 180 
+# item type 8: ID, demand, flip, number rotations, rotations.
+8 1 0 2 0 180 
+# item type 9: ID, demand, flip, number rotations, rotations.
+9 1 0 2 0 180 
+# item type 10: ID, demand, flip, number rotations, rotations.
+10 1 0 2 0 180 
+# number of bins
+1
+# bin 1: ID, copy.
+1 1

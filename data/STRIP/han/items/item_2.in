@@ -1,0 +1,17 @@
+# number of simple polygons
+1
+# number of vertices
+12
+# vertices
+9 0
+13 1
+17 5
+18 9
+17 13
+13 17
+9 18
+5 17
+1 13
+0 9
+1 5
+5 1
