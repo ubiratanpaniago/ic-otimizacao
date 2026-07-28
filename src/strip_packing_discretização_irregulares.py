@@ -103,7 +103,9 @@ def plot_solution(container_w, final_l, placed_items, items_originais, scale, in
         # 1. Rotaciona os vértices de acordo com a rotação aplicada na solução
         # Rotações estão em graus (0, 90, 180, 270)
         angulo_graus = item_original.rotacoes[p['rot']]
-        vertices_rotacionados = [rotacionar_ponto(vx, vy, angulo_graus) for vx, vy in vertices_originais]
+
+        vertices_escalados = [(vx * scale, vy * scale) for vx, vy in vertices_originais]
+        vertices_rotacionados = [rotacionar_ponto(vx, vy, angulo_graus) for vx, vy in vertices_escalados]
         
         # Encontra o menor ponto após a rotação para fazer o alinhamento correto 
         min_x_rot = min(vx for vx, vy in vertices_rotacionados)
@@ -220,6 +222,7 @@ def bottom_left_placement(permutation, instance):
         if not placed:
             rot_seguranca = 0
             box_seguranca = item.max_box_r[rot_seguranca]
+            pos_x = max_l_reached
             placed_items.append({
                 'id': item.id,
                 'rot': rot_seguranca,
@@ -228,7 +231,7 @@ def bottom_left_placement(permutation, instance):
                 'w': box_seguranca['w'],
                 'l': box_seguranca['l']
             })
-            max_l_reached += box_seguranca['l']
+            max_l_reached = pos_x + box_seguranca['l']
 
     # Retorna o score negativo (para o SA maximizar), a lista de peças posicionadas e o L final
     return -max_l_reached, placed_items, max_l_reached
@@ -367,8 +370,13 @@ def read_modular_instance(instancia_path: str):
             tokens_rfr = get_tokens(rfr_file)
             
             try:
+                _ = next(tokens_rfr)
+
                 rows_I = int(next(tokens_rfr))
                 cols_J = int(next(tokens_rfr))
+
+                _ = next(tokens_rfr)
+                _ = next(tokens_rfr)
                 
                 matrix_2d = [[int(next(tokens_rfr)) for _ in range(cols_J)] for _ in range(rows_I)]
                 piece["rfr_matrices"].append(matrix_2d)
@@ -438,10 +446,11 @@ def read_modular_instance(instancia_path: str):
                     tokens_nfr = get_tokens(nfr_file)
                     
                     try:
-                        ref_i = int(next(tokens_nfr))
-                        ref_j = int(next(tokens_nfr))
                         nfp_rows = int(next(tokens_nfr))
                         nfp_cols = int(next(tokens_nfr))
+
+                        ref_i = nfp_rows // 2
+                        ref_j = nfp_cols // 2
                         
                         matrix_2d = [[int(next(tokens_nfr)) for _ in range(nfp_cols)] for _ in range(nfp_rows)]
                         
@@ -467,7 +476,7 @@ def main():
     instancia_unica = "blasz2"
     
     # Caminho base do diretório que contém as instâncias
-    folder_path = r"C:\Users\ubira\Documentos\Mat Apli\IC\Archive\STRIP"
+    folder_path = r"C:\Users\ResTIC16\ic-otimizacao\data\STRIP"
     # ==========================================================================
 
     # 1. Identificador e Pastas de Resultados
@@ -546,7 +555,7 @@ def main():
 
             # Executa a Otimização com o SA
             start_time = time.time()
-            best_order, final_l = recozimento_simulado(inst)
+            best_order, final_l = recozimento_simulado(inst, t0=100, alpha=0.9, iter_max=10)
             _, final_placement, _ = bottom_left_placement(best_order, inst)
             duracao = time.time() - start_time
 
