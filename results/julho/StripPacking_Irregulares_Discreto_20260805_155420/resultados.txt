@@ -1,0 +1,1 @@
+blazewicz1: L=8.00, Taxa de Ocupação=67.50%, Itens Empacotados=7/7, Tempo=0.42s

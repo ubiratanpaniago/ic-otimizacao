@@ -223,11 +223,11 @@ def bottom_left_placement(permutation, instance):
                         matriz_nfp = nfp['matrix']
                         
                         # Calcula a posição relativa no grid de colisão
-                        y_relativo = ref_i - (cy - p['y'])
-                        x_relativo = (cx - p['x']) + ref_j
+                        # y_relativo = ref_i - (cy - p['y'])
+                        # x_relativo = (cx - p['x']) + ref_j
                         
-                        #y_relativo = cy - p['y'] + ref_i
-                        #x_relativo = cx - p['x'] + ref_j
+                        y_relativo = cy - p['y'] + ref_i
+                        x_relativo = cx - p['x'] + ref_j
                         
                         # Checa se o ponto relativo cai dentro das dimensões da matriz NFP
                         if 0 <= y_relativo < len(matriz_nfp) and 0 <= x_relativo < len(matriz_nfp[0]):
@@ -513,7 +513,7 @@ def main():
     RODAR_APENAS_UMA = True  
     
     # Nome da instância única para teste (usada se RODAR_APENAS_UMA for True)
-    instancia_unica = "blazewicz1"
+    instancia_unica = "fu"
     
     # Caminho base do diretório que contém as instâncias
     folder_path = r"C:\Users\ubira\ic-otimizacao\data\STRIP"
@@ -604,7 +604,7 @@ def main():
 
             # Executa a Otimização com o SA
             start_time = time.time()
-            best_order, final_l = recozimento_simulado(inst, t0=100, alpha=0.9, iter_max=10)
+            best_order, final_l = recozimento_simulado(inst, t0=100, alpha=0.9, iter_max=300)
             _, final_placement, _ = bottom_left_placement(best_order, inst)
             duracao = time.time() - start_time
 
