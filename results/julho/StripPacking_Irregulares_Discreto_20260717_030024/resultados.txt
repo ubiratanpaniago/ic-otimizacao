@@ -1,1 +1,0 @@
-blasz2: L=51.00, Taxa de Ocupação=384.60%, Itens Empacotados=16/16, Tempo=73.16s

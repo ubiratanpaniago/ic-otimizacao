@@ -22,16 +22,42 @@ class Item:
         # Guarde a Bounding Box (largura e comprimento máximos) para cada rotação
         # No código anterior: l é X (comprimento) e w é Y (largura fixa)
         self.max_box_r = []
-        for mat in rfr_matrizes:
-            # mat = matriz 2D. 
-            # O número de linhas da matriz é a altura (w - eixo Y)
-            # O número de colunas é o comprimento (l - eixo X)
-            altura_y = len(mat)
-            comprimento_x = len(mat[0]) if altura_y > 0 else 0
-            self.max_box_r.append({'w': altura_y, 'l': comprimento_x})
+
+        # Calcula a Bounding Box na Escala 1 (baseado apenas nos vértices)
+        for angulo in rotacoes:
+            if not vertices:
+                # Prevenção caso falhe a leitura dos vértices
+                self.max_box_r.append({'w': 1, 'l': 1})
+                continue
+
+            rad = graus_para_radianos(angulo)
+            v_rot = []
             
-        # Área real do polígono (soma de todas as células "1" na rotação 0)
-        self.area = sum(sum(linha) for linha in rfr_matrizes[0]) if rfr_matrizes else 0
+            for vx, vy in vertices:
+                nx = (vx * math.cos(rad)) - (vy * math.sin(rad))
+                ny = (vx * math.sin(rad)) + (vy * math.cos(rad))
+                v_rot.append((nx, ny))
+            
+            min_x = min(v[0] for v in v_rot)
+            max_x = max(v[0] for v in v_rot)
+            min_y = min(v[1] for v in v_rot)
+            max_y = max(v[1] for v in v_rot)
+            
+            # math.ceil garante que a caixa cubra o limite decimal no grid
+            w = math.ceil(max_y - min_y)
+            l = math.ceil(max_x - min_x)
+            
+            # Prevenção: nunca deixa a altura/comprimento ser 0
+            self.max_box_r.append({'w': max(1, w), 'l': max(1, l)})
+            
+        # Calcula a área real geométrica (Escala 1) usando a Fórmula de Shoelace
+        area_calc = 0
+        if vertices:
+            for i in range(len(vertices)):
+                x1, y1 = vertices[i]
+                x2, y2 = vertices[(i + 1) % len(vertices)]
+                area_calc += (x1 * y2 - x2 * y1)
+        self.area = abs(area_calc) / 2.0
 
 class Instance:
     def __init__(self, name, container_w, container_grid, items, nfp_map):
@@ -168,6 +194,12 @@ def bottom_left_placement(permutation, instance):
 
     for item in permutation:
         placed = False
+
+        # --- PRINT DE DEPURAÇÃO ---
+        # Pega a altura (W) da primeira rotação da peça para comparar com o container
+        altura_peca = item.max_box_r[0]['w']
+        print(f"[TESTE PEÇA {item.id}] Altura da Peça (W): {altura_peca} | Largura do Container (container_w): {container_w}")
+        # -------------------------------
         
         # Para cada peça, podemos definir uma rotação padrão para testar.
         for rot_idx in range(item.num_rotations):
@@ -191,8 +223,11 @@ def bottom_left_placement(permutation, instance):
                         matriz_nfp = nfp['matrix']
                         
                         # Calcula a posição relativa no grid de colisão
-                        y_relativo = cy - p['y'] + ref_i
-                        x_relativo = cx - p['x'] + ref_j
+                        y_relativo = ref_i - (cy - p['y'])
+                        x_relativo = (cx - p['x']) + ref_j
+                        
+                        #y_relativo = cy - p['y'] + ref_i
+                        #x_relativo = cx - p['x'] + ref_j
                         
                         # Checa se o ponto relativo cai dentro das dimensões da matriz NFP
                         if 0 <= y_relativo < len(matriz_nfp) and 0 <= x_relativo < len(matriz_nfp[0]):
@@ -220,6 +255,8 @@ def bottom_left_placement(permutation, instance):
                         break # Peça posicionada com sucesso, pula para a próxima do sequenciamento
                         
         if not placed:
+            print(f"  [REJEITADA -> FALLBACK] Peça ID {item.id} não coube no grid NFP! Forçando em X={max_l_reached}") #print temporario para debug
+
             rot_seguranca = 0
             box_seguranca = item.max_box_r[rot_seguranca]
             pos_x = max_l_reached
@@ -346,7 +383,10 @@ def read_modular_instance(instancia_path: str):
         tokens_item = get_tokens(item_file)
         
         try:
+            # O arquivo declara o número de polígonos (1) e depois os vértices (6)
+            num_poligonos = int(next(tokens_item)) 
             num_vertices = int(next(tokens_item))
+            
             vertices = []
             for _ in range(num_vertices):
                 vx = float(next(tokens_item))
@@ -473,10 +513,10 @@ def main():
     RODAR_APENAS_UMA = True  
     
     # Nome da instância única para teste (usada se RODAR_APENAS_UMA for True)
-    instancia_unica = "blasz2"
+    instancia_unica = "blazewicz1"
     
     # Caminho base do diretório que contém as instâncias
-    folder_path = r"C:\Users\ResTIC16\ic-otimizacao\data\STRIP"
+    folder_path = r"C:\Users\ubira\ic-otimizacao\data\STRIP"
     # ==========================================================================
 
     # 1. Identificador e Pastas de Resultados
@@ -533,11 +573,20 @@ def main():
                 
             # Instancia o primeiro Container (bin)
             bin_principal = dados_crus["bins"][0]
+
+            #fator_discreto = 10.0
+            
+            # fator_discreto = dados_crus["scale"] if dados_crus["scale"] > 1.0 else 10.0
+            # largura_discreta = int(bin_principal["H"] * fator_discreto)
+
+            # largura_discreta = int(bin_principal["H"] * dados_crus["scale"])
+
+            # largura_discreta_container = int(bin_principal["W"] * dados_crus["scale"])
             
             # Monta o objeto Instance completo com o mapa de colisões NFP
             inst = Instance(
                 name=inst_nome,
-                container_w=int(bin_principal["W"]), 
+                container_w=int(bin_principal["H"]), 
                 container_grid=bin_principal["matrix"],
                 items=itens_disponiveis,
                 nfp_map=dados_crus["nfp"]
@@ -575,7 +624,7 @@ def main():
                 final_l=final_l, 
                 placed_items=final_placement, 
                 items_originais=itens_disponiveis, 
-                scale=dados_crus["scale"],
+                scale=1.0,
                 instance_name=inst.name, 
                 caminho_salvamento=caminho_img, 
                 taxa_ocupacao=taxa_ocupacao, 
