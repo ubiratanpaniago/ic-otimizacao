@@ -1,0 +1,1 @@
+poly1c: L=13.00, Taxa de Ocupação=60.67%, Itens Empacotados=15/15, Tempo=172.99s

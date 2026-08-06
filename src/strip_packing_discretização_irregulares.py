@@ -513,7 +513,7 @@ def main():
     RODAR_APENAS_UMA = True  
     
     # Nome da instância única para teste (usada se RODAR_APENAS_UMA for True)
-    instancia_unica = "fu"
+    instancia_unica = "poly1c"
     
     # Caminho base do diretório que contém as instâncias
     folder_path = r"C:\Users\ubira\ic-otimizacao\data\STRIP"
