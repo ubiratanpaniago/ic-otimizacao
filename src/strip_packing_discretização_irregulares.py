@@ -14,7 +14,7 @@ class Item:
         self.id = id
         self.demanda = demanda  # Quantidade de cópias necessarias desse item
         self.rotacoes = rotacoes  # ex [0, 90, 180 ,270]
-        self.rfr_matrizes = rfr_matrizes # lista com as matrizes discretas de cd rotação
+        self.rfr_matrizes = rfr_matrizes # lista com as matrizes discretas de cada rotação
 
         self.num_rotations = len(rotacoes) # quantidade de rotações permitidas
         self.vertices = vertices
@@ -184,7 +184,9 @@ def bottom_left_placement(permutation, instance):
 
     eixo_y_discreto = list(range(container_w))
 
-    limite_l_estimado = sum(item.max_box_r[0]['l'] for item in permutation)
+    limite_l_estimado = sum(
+    max(rot['l'] for rot in item.max_box_r) for item in permutation
+)
     eixo_x_discreto = list(range(limite_l_estimado))
 
     candidates = []
@@ -489,8 +491,10 @@ def read_modular_instance(instancia_path: str):
                         nfp_rows = int(next(tokens_nfr))
                         nfp_cols = int(next(tokens_nfr))
 
-                        ref_i = nfp_rows // 2
-                        ref_j = nfp_cols // 2
+                        v2 = piece2["vertices"] 
+                        ref_i = math.ceil(max(v[1] for v in v2) - min(v[1] for v in v2))
+                        ref_j = math.ceil(max(v[0] for v in v2) - min(v[0] for v in v2))
+                        # --------------------------
                         
                         matrix_2d = [[int(next(tokens_nfr)) for _ in range(nfp_cols)] for _ in range(nfp_rows)]
                         
@@ -513,10 +517,11 @@ def main():
     RODAR_APENAS_UMA = True  
     
     # Nome da instância única para teste (usada se RODAR_APENAS_UMA for True)
-    instancia_unica = "poly1c"
+    instancia_unica = "blasz2"
     
     # Caminho base do diretório que contém as instâncias
-    folder_path = r"C:\Users\ubira\ic-otimizacao\data\STRIP"
+    folder_path = r"C:\Users\ubira\ic-otimizacao\data\STRIP" #usar no windows
+    folder_path = r"/home/ubiratanfilho/Documentos/Projetos/ic-otimizacao/data/STRIP" # usar no linux
     # ==========================================================================
 
     # 1. Identificador e Pastas de Resultados
@@ -557,7 +562,7 @@ def main():
             dados_crus = read_modular_instance(caminho_instancia)
             if not dados_crus:
                 continue
-                
+
             # Criar os objetos de Otimização baseado no que foi lido
             itens_disponiveis = []
             for p_info in dados_crus["pieces"]:
