@@ -200,7 +200,7 @@ def bottom_left_placement(permutation, instance):
         # --- PRINT DE DEPURAÇÃO ---
         # Pega a altura (W) da primeira rotação da peça para comparar com o container
         altura_peca = item.max_box_r[0]['w']
-        print(f"[TESTE PEÇA {item.id}] Altura da Peça (W): {altura_peca} | Largura do Container (container_w): {container_w}")
+        print(f"[TESTE PECA {item.id}] Altura da Peca (W): {altura_peca} | Largura do Container (container_w): {container_w}")
         # -------------------------------
         
         # Para cada peça, podemos definir uma rotação padrão para testar.
@@ -257,7 +257,7 @@ def bottom_left_placement(permutation, instance):
                         break # Peça posicionada com sucesso, pula para a próxima do sequenciamento
                         
         if not placed:
-            print(f"  [REJEITADA -> FALLBACK] Peça ID {item.id} não coube no grid NFP! Forçando em X={max_l_reached}") #print temporario para debug
+            print(f"  [REJEITADA -> FALLBACK] Peca ID {item.id} não coube no grid NFP! Forçando em X={max_l_reached}") #print temporario para debug
 
             rot_seguranca = 0
             box_seguranca = item.max_box_r[rot_seguranca]
@@ -514,24 +514,24 @@ def main():
     # ==========================================================================
     # Altere para True para testar apenas uma instância específica.
     # Altere para False para processar todas as instâncias da pasta STRIP.
-    RODAR_APENAS_UMA = True  
+    RODAR_APENAS_UMA = False  
     
     # Nome da instância única para teste (usada se RODAR_APENAS_UMA for True)
-    instancia_unica = "blasz2"
+    instancia_unica = "blazewicz1"
     
     # Caminho base do diretório que contém as instâncias
-    folder_path = r"C:\Users\ubira\ic-otimizacao\data\STRIP" #usar no windows
-    folder_path = r"/home/ubiratanfilho/Documentos/Projetos/ic-otimizacao/data/STRIP" # usar no linux
+    folder_path = r"C:\Users\ubira\ic-otimizacao\data\testeFinal" #usar no windows
+    # folder_path = r"/home/ubiratanfilho/Documentos/Projetos/ic-otimizacao/data/STRIP" # usar no linux
     # ==========================================================================
 
     # 1. Identificador e Pastas de Resultados
-    identificador = "StripPacking_Irregulares_Discreto"
+    identificador = "Teste_Instancias_Aleatorias"
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     
     if not os.path.exists("results"):
         os.makedirs("results")
 
-    pasta_raiz = os.path.join("results/julho", f"{identificador}_{timestamp}")
+    pasta_raiz = os.path.join("results/agosto", f"{identificador}_{timestamp}")
     pasta_imagens = os.path.join(pasta_raiz, "imagens")
     os.makedirs(pasta_imagens, exist_ok=True)
 
@@ -617,7 +617,7 @@ def main():
             area_container_usada = inst.w * final_l
             taxa_ocupacao = (area_total_itens / area_container_usada) * 100 if area_container_usada > 0 else 0
 
-            print(f"    [OK] L final: {final_l:.2f} | Ocupação: {taxa_ocupacao:.2f}% | Tempo: {duracao:.2f}s")
+            print(f"    [OK] L final: {final_l:.2f} | Ocupacao: {taxa_ocupacao:.2f}% | Tempo: {duracao:.2f}s")
 
             total_itens = len(pecas_para_otimizar)
             qtd_empacotados = len(final_placement)
@@ -638,7 +638,7 @@ def main():
             print(f"    [IMG] Salva em: {caminho_img}")
             
             with open(os.path.join(pasta_raiz, "resultados.txt"), "a") as log:
-                log.write(f"{inst_nome}: L={final_l:.2f}, Taxa de Ocupação={taxa_ocupacao:.2f}%, "
+                log.write(f"{inst_nome}: L={final_l:.2f}, Taxa de Ocupacao={taxa_ocupacao:.2f}%, "
                           f"Itens Empacotados={qtd_empacotados}/{total_itens}, Tempo={duracao:.2f}s\n")
 
         except Exception as e:

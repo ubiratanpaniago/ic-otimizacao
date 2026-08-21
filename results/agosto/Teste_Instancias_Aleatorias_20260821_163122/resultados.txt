@@ -1,0 +1,10 @@
+blasz2: L=22.00, Taxa de Ocupacao=68.48%, Itens Empacotados=16/16, Tempo=184.36s
+blazewicz1: L=8.00, Taxa de Ocupacao=67.50%, Itens Empacotados=7/7, Tempo=12.23s
+dagli1: L=23.00, Taxa de Ocupacao=73.30%, Itens Empacotados=10/10, Tempo=219.55s
+fu5: L=18.00, Taxa de Ocupacao=64.04%, Itens Empacotados=5/5, Tempo=22.81s
+fu8: L=24.00, Taxa de Ocupacao=82.13%, Itens Empacotados=8/8, Tempo=110.71s
+poly1d: L=13.00, Taxa de Ocupacao=62.88%, Itens Empacotados=15/15, Tempo=222.61s
+rco3: L=23.00, Taxa de Ocupacao=82.17%, Itens Empacotados=21/21, Tempo=271.22s
+shapes5: L=31.00, Taxa de Ocupacao=64.52%, Itens Empacotados=20/20, Tempo=730.46s
+shirts1-2: L=13.00, Taxa de Ocupacao=52.88%, Itens Empacotados=13/13, Tempo=65.07s
+threep2: L=10.00, Taxa de Ocupacao=65.71%, Itens Empacotados=6/6, Tempo=12.43s
