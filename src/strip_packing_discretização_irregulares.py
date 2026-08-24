@@ -520,7 +520,7 @@ def main():
     instancia_unica = "blazewicz1"
     
     # Caminho base do diretório que contém as instâncias
-    folder_path = r"C:\Users\ubira\ic-otimizacao\data\testeFinal" #usar no windows
+    folder_path = r"C:\Users\ubira\ic-otimizacao\data\STRIP" #usar no windows
     # folder_path = r"/home/ubiratanfilho/Documentos/Projetos/ic-otimizacao/data/STRIP" # usar no linux
     # ==========================================================================
 

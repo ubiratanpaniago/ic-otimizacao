@@ -1,0 +1,12 @@
+blasz2: L=22.00, Taxa de Ocupacao=68.48%, Itens Empacotados=16/16, Tempo=136.11s
+blazewicz1: L=8.00, Taxa de Ocupacao=67.50%, Itens Empacotados=7/7, Tempo=11.58s
+blazewicz2: L=14.00, Taxa de Ocupacao=77.14%, Itens Empacotados=14/14, Tempo=70.72s
+blazewicz3: L=21.00, Taxa de Ocupacao=77.14%, Itens Empacotados=21/21, Tempo=219.16s
+blazewicz4: L=29.00, Taxa de Ocupacao=74.48%, Itens Empacotados=28/28, Tempo=504.73s
+blazewicz5: L=35.00, Taxa de Ocupacao=77.14%, Itens Empacotados=35/35, Tempo=1077.25s
+dagli1: L=23.00, Taxa de Ocupacao=73.30%, Itens Empacotados=10/10, Tempo=186.34s
+dighe1: L=100.00, Taxa de Ocupacao=100.00%, Itens Empacotados=16/16, Tempo=4169.89s
+dighe2: L=100.00, Taxa de Ocupacao=100.00%, Itens Empacotados=10/10, Tempo=1752.46s
+fu: L=34.00, Taxa de Ocupacao=83.82%, Itens Empacotados=12/12, Tempo=354.60s
+fu10: L=30.00, Taxa de Ocupacao=84.82%, Itens Empacotados=10/10, Tempo=217.40s
+fu5: L=18.00, Taxa de Ocupacao=64.04%, Itens Empacotados=5/5, Tempo=27.45s
