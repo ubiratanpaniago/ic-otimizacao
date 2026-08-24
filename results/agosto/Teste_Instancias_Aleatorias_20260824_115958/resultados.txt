@@ -1,0 +1,4 @@
+fu8: L=24.00, Taxa de Ocupacao=82.13%, Itens Empacotados=8/8, Tempo=97.51s
+shapes5: L=32.00, Taxa de Ocupacao=62.50%, Itens Empacotados=20/20, Tempo=697.24s
+blazewicz1: L=8.00, Taxa de Ocupacao=67.50%, Itens Empacotados=7/7, Tempo=13.02s
+shirts1-2: L=13.00, Taxa de Ocupacao=52.88%, Itens Empacotados=13/13, Tempo=26.42s

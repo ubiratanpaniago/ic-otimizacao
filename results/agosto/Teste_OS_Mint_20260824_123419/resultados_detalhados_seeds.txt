@@ -1,0 +1,7 @@
+Instancia=fu8 | Seed=42 | L=24.00 | Ocupacao=82.13% | Avaliacoes_BL=41708656 | Checks_NFP=84837756 | Tempo=56.2708s
+Instancia=fu8 | Seed=43 | L=24.00 | Ocupacao=82.13% | Avaliacoes_BL=41576523 | Checks_NFP=84158115 | Tempo=86.9795s
+Instancia=fu8 | Seed=44 | L=24.00 | Ocupacao=82.13% | Avaliacoes_BL=42128576 | Checks_NFP=84651759 | Tempo=89.2009s
+Instancia=fu8 | Seed=45 | L=24.00 | Ocupacao=82.13% | Avaliacoes_BL=41546891 | Checks_NFP=84072979 | Tempo=114.1458s
+Instancia=fu8 | Seed=46 | L=24.00 | Ocupacao=82.13% | Avaliacoes_BL=42706327 | Checks_NFP=85750044 | Tempo=115.0080s
+Instancia=fu8 | Seed=47 | L=24.00 | Ocupacao=82.13% | Avaliacoes_BL=42470572 | Checks_NFP=85001982 | Tempo=94.9171s
+Instancia=fu8 | Seed=48 | L=24.00 | Ocupacao=82.13% | Avaliacoes_BL=43381805 | Checks_NFP=87450269 | Tempo=116.5316s
