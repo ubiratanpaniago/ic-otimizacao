@@ -1,0 +1,6 @@
+blasz2: L=22.00, Taxa de Ocupacao=68.48%, Itens Empacotados=16/16, Tempo=93.54s
+blazewicz1: L=8.00, Taxa de Ocupacao=67.50%, Itens Empacotados=7/7, Tempo=5.42s
+fu5: L=18.00, Taxa de Ocupacao=64.04%, Itens Empacotados=5/5, Tempo=7.74s
+fu8: L=24.00, Taxa de Ocupacao=82.13%, Itens Empacotados=8/8, Tempo=47.53s
+shirts1-2: L=13.00, Taxa de Ocupacao=52.88%, Itens Empacotados=13/13, Tempo=10.48s
+threep2: L=10.00, Taxa de Ocupacao=65.71%, Itens Empacotados=6/6, Tempo=3.69s

@@ -545,12 +545,12 @@ def main():
     instancia_unica = "blazewicz1"
     
     # Caminho base do diretório que contém as instâncias
-    # folder_path = r"C:\Users\ubira\ic-otimizacao\data\STRIP" #usar no windows
-    folder_path = r"/home/ubiratanfilho/Documentos/Projetos/ic-otimizacao/data/TesteOS" # usar no linux
+    folder_path = r"C:\Users\ubira\ic-otimizacao\data\TesteOS" #usar no windows
+    #folder_path = r"/home/ubiratanfilho/Documentos/Projetos/ic-otimizacao/data/TesteOS" # usar no linux
     # ==========================================================================
 
     # 1. Identificador e Pastas de Resultados
-    identificador = "Teste_OS_Mint"
+    identificador = "Teste_OS_Windows"
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     
     if not os.path.exists("results"):

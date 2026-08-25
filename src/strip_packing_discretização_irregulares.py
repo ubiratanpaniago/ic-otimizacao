@@ -3,6 +3,8 @@ import time
 import random
 import math
 import sys
+import matplotlib
+matplotlib.use('Agg')  # backend não-interativo, sem overhead de GUI
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 from datetime import datetime
@@ -182,27 +184,13 @@ def bottom_left_placement(permutation, instance):
     max_l_reached = 0
     container_w = instance.w
 
-    eixo_y_discreto = list(range(container_w))
-
     limite_l_estimado = sum(
-    max(rot['l'] for rot in item.max_box_r) for item in permutation
-)
-    eixo_x_discreto = list(range(limite_l_estimado))
-
-    candidates = []
-    for cx in eixo_x_discreto:
-        for cy in eixo_y_discreto:
-            candidates.append((cx, cy))
+        max(rot['l'] for rot in item.max_box_r) for item in permutation
+    )
 
     for item in permutation:
         placed = False
 
-        # --- PRINT DE DEPURAÇÃO ---
-        # Pega a altura (W) da primeira rotação da peça para comparar com o container
-        altura_peca = item.max_box_r[0]['w']
-        print(f"[TESTE PECA {item.id}] Altura da Peca (W): {altura_peca} | Largura do Container (container_w): {container_w}")
-        # -------------------------------
-        
         # Para cada peça, podemos definir uma rotação padrão para testar.
         for rot_idx in range(item.num_rotations):
             if placed:
@@ -211,51 +199,51 @@ def bottom_left_placement(permutation, instance):
             # Pega a caixa envolvente do item para a rotação testada
             box = item.max_box_r[rot_idx]
             
-            for cx, cy in candidates:
-                # 1. Validação física: a caixa envolvente cabe dentro da largura limite do container?
-                if cy + box['w'] <= container_w:
-                    overlap = False
-                    
-                    # 2. Varre todos os itens já colocados para testar colisão via NFP
-                    for p in placed_items:
-                        # nfp_map indexa por [id_da_peça_A][rot_A][id_da_peça_B][rot_B]
-                        nfp = instance.nfp_map[p['id']][p['rot']][item.id][rot_idx]
-                        
-                        ref_i, ref_j = nfp['ref']
-                        matriz_nfp = nfp['matrix']
-                        
-                        # Calcula a posição relativa no grid de colisão
-                        # y_relativo = ref_i - (cy - p['y'])
-                        # x_relativo = (cx - p['x']) + ref_j
-                        
-                        y_relativo = cy - p['y'] + ref_i
-                        x_relativo = cx - p['x'] + ref_j
-                        
-                        # Checa se o ponto relativo cai dentro das dimensões da matriz NFP
-                        if 0 <= y_relativo < len(matriz_nfp) and 0 <= x_relativo < len(matriz_nfp[0]):
-                            # Se na matriz NFP o valor for > 0, há colisão física!
-                            if matriz_nfp[y_relativo][x_relativo] > 0:
-                                overlap = True
-                                break # Não precisa testar outras peças já colocadas, este ponto falhou
-                                
-                    # 3. Se passou por todas as peças sem colidir, posiciona a peça
-                    if not overlap:
-                        placed_items.append({
-                            'id': item.id,
-                            'rot': rot_idx,
-                            'x': cx,
-                            'y': cy,
-                            'w': box['w'],
-                            'l': box['l']
-                        })
-                        
-                        # Atualiza o comprimento máximo L atingido na faixa
-                        if cx + box['l'] > max_l_reached:
-                            max_l_reached = cx + box['l']
-                            
-                        placed = True
-                        break # Peça posicionada com sucesso, pula para a próxima do sequenciamento
-                        
+            for cx in range(limite_l_estimado):
+                for cy in range(container_w):
+                    # 1. Validação física: a caixa envolvente cabe dentro da largura limite do container?
+                    if cy + box['w'] <= container_w:
+                        overlap = False
+
+                        # 2. Varre todos os itens já colocados para testar colisão via NFP
+                        for p in placed_items:
+                            # nfp_map indexa por [id_da_peça_A][rot_A][id_da_peça_B][rot_B]
+                            nfp = instance.nfp_map[p['id']][p['rot']][item.id][rot_idx]
+
+                            ref_i, ref_j = nfp['ref']
+                            matriz_nfp = nfp['matrix']
+
+                            # Calcula a posição relativa no grid de colisão
+                            y_relativo = cy - p['y'] + ref_i
+                            x_relativo = cx - p['x'] + ref_j
+
+                            # Checa se o ponto relativo cai dentro das dimensões da matriz NFP
+                            if 0 <= y_relativo < len(matriz_nfp) and 0 <= x_relativo < len(matriz_nfp[0]):
+                                # Se na matriz NFP o valor for > 0, há colisão física!
+                                if matriz_nfp[y_relativo][x_relativo] > 0:
+                                    overlap = True
+                                    break # Não precisa testar outras peças já colocadas, este ponto falhou
+
+                        # 3. Se passou por todas as peças sem colidir, posiciona a peça
+                        if not overlap:
+                            placed_items.append({
+                                'id': item.id,
+                                'rot': rot_idx,
+                                'x': cx,
+                                'y': cy,
+                                'w': box['w'],
+                                'l': box['l']
+                            })
+
+                            # Atualiza o comprimento máximo L atingido na faixa
+                            if cx + box['l'] > max_l_reached:
+                                max_l_reached = cx + box['l']
+
+                            placed = True
+                            break # Peça posicionada com sucesso, pula para a próxima do sequenciamento
+                if placed:
+                    break
+
         if not placed:
             print(f"  [REJEITADA -> FALLBACK] Peca ID {item.id} não coube no grid NFP! Forçando em X={max_l_reached}") #print temporario para debug
 
@@ -513,19 +501,19 @@ def main():
     # Configuração De Parametrização De Teste
     # ==========================================================================
     # Altere para True para testar apenas uma instância específica.
-    # Altere para False para processar todas as instâncias da pasta STRIP.
+    # Altere para False para processar todas as instâncias da pasta.
     RODAR_APENAS_UMA = False  
     
     # Nome da instância única para teste (usada se RODAR_APENAS_UMA for True)
     instancia_unica = "blazewicz1"
     
     # Caminho base do diretório que contém as instâncias
-    # folder_path = r"C:\Users\ubira\ic-otimizacao\data\STRIP" #usar no windows
-    folder_path = r"/home/ubiratanfilho/Documentos/Projetos/ic-otimizacao/data/testeFinal" # usar no linux
+    folder_path = r"C:\Users\ubira\ic-otimizacao\data\STRIP" #usar no windows
+    # folder_path = r"/home/ubiratanfilho/Documentos/Projetos/ic-otimizacao/data/testeFinal" # usar no linux
     # ==========================================================================
 
     # 1. Identificador e Pastas de Resultados
-    identificador = "Teste_Instancias_Aleatorias"
+    identificador = "Teste correção de OOM"
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     
     if not os.path.exists("results"):
