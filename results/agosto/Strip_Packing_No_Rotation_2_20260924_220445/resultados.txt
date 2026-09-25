@@ -1,0 +1,11 @@
+shirts: L=65.00, Taxa de Ocupacao=83.08%, Itens Empacotados=99/99, Tempo=16504.31s
+shirts1-2: L=13.00, Taxa de Ocupacao=52.88%, Itens Empacotados=13/13, Tempo=9.65s
+shirts2-4: L=20.00, Taxa de Ocupacao=68.75%, Itens Empacotados=26/26, Tempo=185.67s
+shirts3-6: L=25.00, Taxa de Ocupacao=82.50%, Itens Empacotados=39/39, Tempo=718.54s
+shirts4-8: L=33.00, Taxa de Ocupacao=83.33%, Itens Empacotados=52/52, Tempo=1871.50s
+shirts5-10: L=42.00, Taxa de Ocupacao=81.85%, Itens Empacotados=65/65, Tempo=3885.63s
+three: L=7.00, Taxa de Ocupacao=46.94%, Itens Empacotados=3/3, Tempo=0.51s
+threep2: L=10.00, Taxa de Ocupacao=65.71%, Itens Empacotados=6/6, Tempo=3.17s
+threep2w9: L=9.00, Taxa de Ocupacao=56.79%, Itens Empacotados=6/6, Tempo=3.16s
+threep3: L=14.00, Taxa de Ocupacao=70.41%, Itens Empacotados=9/9, Tempo=9.66s
+threep3w9: L=12.00, Taxa de Ocupacao=63.89%, Itens Empacotados=9/9, Tempo=11.04s

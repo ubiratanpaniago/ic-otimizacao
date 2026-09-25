@@ -458,12 +458,12 @@ def main():
     instancia_unica = "blazewicz1"
     
     # Caminho base do diretório que contém as instâncias
-    folder_path = r"C:\Users\ubira\ic-otimizacao\data\STRIP" #usar no windows
+    folder_path = r"C:\Users\ubira\ic-otimizacao\data\STRIP2" #usar no windows
     # folder_path = r"/home/ubiratanfilho/Documentos/Projetos/ic-otimizacao/data/testeFinal" # usar no linux
     # ==========================================================================
 
     # 1. Identificador e Pastas de Resultados
-    identificador = "Teste correção de OOM"
+    identificador = "Strip_Packing_No_Rotation_2"
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     
     if not os.path.exists("results"):
