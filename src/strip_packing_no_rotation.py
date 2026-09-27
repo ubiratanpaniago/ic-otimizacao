@@ -463,13 +463,13 @@ def main():
     # ==========================================================================
 
     # 1. Identificador e Pastas de Resultados
-    identificador = "Strip_Packing_No_Rotation_2"
+    identificador = "Strip_Packing_No_Rotation"
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     
     if not os.path.exists("results"):
         os.makedirs("results")
 
-    pasta_raiz = os.path.join("results/agosto", f"{identificador}_{timestamp}")
+    pasta_raiz = os.path.join("results/setembro", f"{identificador}_{timestamp}")
     pasta_imagens = os.path.join(pasta_raiz, "imagens")
     os.makedirs(pasta_imagens, exist_ok=True)
 
