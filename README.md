@@ -62,6 +62,14 @@ Obs.: o `pli 2.py` precisa acessar o arquivo da instância, então é necessario
 
 Atualmente, o foco está na análise comparativa de métodos da literatura para embasar a construção da nova heurística, cujos códigos iniciais já estão sendo commitados na pasta `Códigos`.
 
+## Experimentos atuais (strip packing de itens irregulares)
+
+- Protocolo, correções e decisões: [`docs/protocolo-experimental.md`](docs/protocolo-experimental.md)
+- Evolução do código (texto de apoio ao artigo): [`docs/evolucao-do-codigo.md`](docs/evolucao-do-codigo.md)
+- Executor paralelo (com e sem rotação): `src/rodar_experimento_paralelo.py`
+- Análise: `src/analise_de_resultados/analisa_experimento.py`
+- Dependências: `pip install -r requirements.txt`
+
 ## Histórico e Commits
 
 Este repositório serve também como um diário de bordo da pesquisa. A evolução do código pode ser acompanhada através do histórico de commits, documentando desde a implementação básica até as otimizações mais complexas.
