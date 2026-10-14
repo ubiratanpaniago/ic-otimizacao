@@ -573,7 +573,13 @@ def main():
         print(f"--- Modo de Teste Único Ativo. Instância selecionada: {instancia_unica}")
     else:
         # Busca todas as subpastas dentro do diretório STRIP
-        instancias_para_rodar = [d for d in os.listdir(folder_path) if os.path.isdir(os.path.join(folder_path, d))]
+        # Ignora pastas que não são instâncias completas (ex.: w-item não tem peças e
+        # get_tokens chamaria sys.exit, derrubando o lote inteiro)
+        instancias_para_rodar = sorted(
+            d for d in os.listdir(folder_path)
+            if os.path.isdir(os.path.join(folder_path, d, "items"))
+            and os.listdir(os.path.join(folder_path, d, "items"))
+        )
         print(f"--- Modo Lote Ativo. Encontradas {len(instancias_para_rodar)} instâncias para processar.")
 
     if not instancias_para_rodar:
