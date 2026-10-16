@@ -1,0 +1,24 @@
+{
+  "inicio": "2026-10-14T14:02:04",
+  "commit": "c260449d759c927f7962024fa2947372920c6905",
+  "python": "3.13.5",
+  "sistema": "Windows-11-10.0.26200-SP0",
+  "processador": "AMD64 Family 23 Model 24 Stepping 1, AuthenticAMD",
+  "nucleos_logicos": 8,
+  "processos_usados": 3,
+  "parametros_rs": {
+    "t0": 100,
+    "alpha": 0.9,
+    "iter_max": 300
+  },
+  "limite_tempo_s": 3600,
+  "sementes": [
+    42
+  ],
+  "versoes": [
+    "com_rotacao",
+    "sem_rotacao"
+  ],
+  "pasta_dados": "C:\\Users\\ubira\\ic-otimizacao\\data\\STRIP",
+  "n_tarefas": 66
+}
